@@ -1,0 +1,461 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		E6D0C9BE13894ACB00B7F466 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E6D0C9BD13894ACB00B7F466 /* UIKit.framework */; };
+		E6D0C9C013894ACB00B7F466 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E6D0C9BF13894ACB00B7F466 /* Foundation.framework */; };
+		E6D0C9C213894ACB00B7F466 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E6D0C9C113894ACB00B7F466 /* CoreGraphics.framework */; };
+		E6D0C9C813894ACB00B7F466 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = E6D0C9C613894ACB00B7F466 /* InfoPlist.strings */; };
+		E6D0C9CB13894ACB00B7F466 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = E6D0C9CA13894ACB00B7F466 /* main.m */; };
+		E6D0C9CE13894ACB00B7F466 /* GenSoupAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = E6D0C9CD13894ACB00B7F466 /* GenSoupAppDelegate.m */; };
+		E6D0C9D113894ACB00B7F466 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = E6D0C9CF13894ACB00B7F466 /* MainWindow.xib */; };
+		E6D0C9D413894ACB00B7F466 /* GenSoupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E6D0C9D313894ACB00B7F466 /* GenSoupViewController.m */; };
+		E6D0C9D713894ACB00B7F466 /* GenSoupViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E6D0C9D513894ACB00B7F466 /* GenSoupViewController.xib */; };
+		E6D0C9DE13894ACB00B7F466 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E6D0C9BD13894ACB00B7F466 /* UIKit.framework */; };
+		E6D0C9DF13894ACB00B7F466 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E6D0C9BF13894ACB00B7F466 /* Foundation.framework */; };
+		E6D0C9E013894ACB00B7F466 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E6D0C9C113894ACB00B7F466 /* CoreGraphics.framework */; };
+		E6D0C9E813894ACB00B7F466 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = E6D0C9E613894ACB00B7F466 /* InfoPlist.strings */; };
+		E6D0C9EB13894ACB00B7F466 /* GenSoupTests.h in Resources */ = {isa = PBXBuildFile; fileRef = E6D0C9EA13894ACB00B7F466 /* GenSoupTests.h */; };
+		E6D0C9ED13894ACB00B7F466 /* GenSoupTests.m in Sources */ = {isa = PBXBuildFile; fileRef = E6D0C9EC13894ACB00B7F466 /* GenSoupTests.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		E6D0C9E113894ACB00B7F466 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E6D0C9B013894ACB00B7F466 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = E6D0C9B813894ACB00B7F466;
+			remoteInfo = GenSoup;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		E6D0C9B913894ACB00B7F466 /* GenSoup.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GenSoup.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		E6D0C9BD13894ACB00B7F466 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		E6D0C9BF13894ACB00B7F466 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		E6D0C9C113894ACB00B7F466 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		E6D0C9C513894ACB00B7F466 /* GenSoup-Info.plist */ = {isa = PBXFileReference; path = "GenSoup-Info.plist"; sourceTree = "<group>"; };
+		E6D0C9C713894ACB00B7F466 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		E6D0C9C913894ACB00B7F466 /* GenSoup-Prefix.pch */ = {isa = PBXFileReference; path = "GenSoup-Prefix.pch"; sourceTree = "<group>"; };
+		E6D0C9CA13894ACB00B7F466 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		E6D0C9CC13894ACB00B7F466 /* GenSoupAppDelegate.h */ = {isa = PBXFileReference; path = GenSoupAppDelegate.h; sourceTree = "<group>"; };
+		E6D0C9CD13894ACB00B7F466 /* GenSoupAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GenSoupAppDelegate.m; sourceTree = "<group>"; };
+		E6D0C9D013894ACB00B7F466 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainWindow.xib; sourceTree = "<group>"; };
+		E6D0C9D213894ACB00B7F466 /* GenSoupViewController.h */ = {isa = PBXFileReference; path = GenSoupViewController.h; sourceTree = "<group>"; };
+		E6D0C9D313894ACB00B7F466 /* GenSoupViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GenSoupViewController.m; sourceTree = "<group>"; };
+		E6D0C9D613894ACB00B7F466 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/GenSoupViewController.xib; sourceTree = "<group>"; };
+		E6D0C9DD13894ACB00B7F466 /* GenSoupTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GenSoupTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
+		E6D0C9E513894ACB00B7F466 /* GenSoupTests-Info.plist */ = {isa = PBXFileReference; path = "GenSoupTests-Info.plist"; sourceTree = "<group>"; };
+		E6D0C9E713894ACB00B7F466 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		E6D0C9E913894ACB00B7F466 /* GenSoupTests-Prefix.pch */ = {isa = PBXFileReference; path = "GenSoupTests-Prefix.pch"; sourceTree = "<group>"; };
+		E6D0C9EA13894ACB00B7F466 /* GenSoupTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GenSoupTests.h; sourceTree = "<group>"; };
+		E6D0C9EC13894ACB00B7F466 /* GenSoupTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GenSoupTests.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		E6D0C9B613894ACB00B7F466 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E6D0C9BE13894ACB00B7F466 /* UIKit.framework in Frameworks */,
+				E6D0C9C013894ACB00B7F466 /* Foundation.framework in Frameworks */,
+				E6D0C9C213894ACB00B7F466 /* CoreGraphics.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E6D0C9D913894ACB00B7F466 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E6D0C9DE13894ACB00B7F466 /* UIKit.framework in Frameworks */,
+				E6D0C9DF13894ACB00B7F466 /* Foundation.framework in Frameworks */,
+				E6D0C9E013894ACB00B7F466 /* CoreGraphics.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		E6D0C9AE13894ACB00B7F466 = {
+			isa = PBXGroup;
+			children = (
+				E6D0C9C313894ACB00B7F466 /* GenSoup */,
+				E6D0C9E313894ACB00B7F466 /* GenSoupTests */,
+				E6D0C9BC13894ACB00B7F466 /* Frameworks */,
+				E6D0C9BA13894ACB00B7F466 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		E6D0C9BA13894ACB00B7F466 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				E6D0C9B913894ACB00B7F466 /* GenSoup.app */,
+				E6D0C9DD13894ACB00B7F466 /* GenSoupTests.octest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		E6D0C9BC13894ACB00B7F466 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				E6D0C9BD13894ACB00B7F466 /* UIKit.framework */,
+				E6D0C9BF13894ACB00B7F466 /* Foundation.framework */,
+				E6D0C9C113894ACB00B7F466 /* CoreGraphics.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		E6D0C9C313894ACB00B7F466 /* GenSoup */ = {
+			isa = PBXGroup;
+			children = (
+				E6D0C9CC13894ACB00B7F466 /* GenSoupAppDelegate.h */,
+				E6D0C9CD13894ACB00B7F466 /* GenSoupAppDelegate.m */,
+				E6D0C9CF13894ACB00B7F466 /* MainWindow.xib */,
+				E6D0C9D213894ACB00B7F466 /* GenSoupViewController.h */,
+				E6D0C9D313894ACB00B7F466 /* GenSoupViewController.m */,
+				E6D0C9D513894ACB00B7F466 /* GenSoupViewController.xib */,
+				E6D0C9C413894ACB00B7F466 /* Supporting Files */,
+			);
+			path = GenSoup;
+			sourceTree = "<group>";
+		};
+		E6D0C9C413894ACB00B7F466 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				E6D0C9C513894ACB00B7F466 /* GenSoup-Info.plist */,
+				E6D0C9C613894ACB00B7F466 /* InfoPlist.strings */,
+				E6D0C9C913894ACB00B7F466 /* GenSoup-Prefix.pch */,
+				E6D0C9CA13894ACB00B7F466 /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		E6D0C9E313894ACB00B7F466 /* GenSoupTests */ = {
+			isa = PBXGroup;
+			children = (
+				E6D0C9EA13894ACB00B7F466 /* GenSoupTests.h */,
+				E6D0C9EC13894ACB00B7F466 /* GenSoupTests.m */,
+				E6D0C9E413894ACB00B7F466 /* Supporting Files */,
+			);
+			path = GenSoupTests;
+			sourceTree = "<group>";
+		};
+		E6D0C9E413894ACB00B7F466 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				E6D0C9E513894ACB00B7F466 /* GenSoupTests-Info.plist */,
+				E6D0C9E613894ACB00B7F466 /* InfoPlist.strings */,
+				E6D0C9E913894ACB00B7F466 /* GenSoupTests-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		E6D0C9B813894ACB00B7F466 /* GenSoup */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E6D0C9F013894ACB00B7F466 /* Build configuration list for PBXNativeTarget "GenSoup" */;
+			buildPhases = (
+				E6D0C9B513894ACB00B7F466 /* Sources */,
+				E6D0C9B613894ACB00B7F466 /* Frameworks */,
+				E6D0C9B713894ACB00B7F466 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = GenSoup;
+			productName = GenSoup;
+			productReference = E6D0C9B913894ACB00B7F466 /* GenSoup.app */;
+			productType = "com.apple.product-type.application";
+		};
+		E6D0C9DC13894ACB00B7F466 /* GenSoupTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E6D0C9F313894ACB00B7F466 /* Build configuration list for PBXNativeTarget "GenSoupTests" */;
+			buildPhases = (
+				E6D0C9D813894ACB00B7F466 /* Sources */,
+				E6D0C9D913894ACB00B7F466 /* Frameworks */,
+				E6D0C9DA13894ACB00B7F466 /* Resources */,
+				E6D0C9DB13894ACB00B7F466 /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				E6D0C9E213894ACB00B7F466 /* PBXTargetDependency */,
+			);
+			name = GenSoupTests;
+			productName = GenSoupTests;
+			productReference = E6D0C9DD13894ACB00B7F466 /* GenSoupTests.octest */;
+			productType = "com.apple.product-type.bundle";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		E6D0C9B013894ACB00B7F466 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				ORGANIZATIONNAME = "Unboxed Consulting";
+			};
+			buildConfigurationList = E6D0C9B313894ACB00B7F466 /* Build configuration list for PBXProject "GenSoup" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = E6D0C9AE13894ACB00B7F466;
+			productRefGroup = E6D0C9BA13894ACB00B7F466 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				E6D0C9B813894ACB00B7F466 /* GenSoup */,
+				E6D0C9DC13894ACB00B7F466 /* GenSoupTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		E6D0C9B713894ACB00B7F466 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E6D0C9C813894ACB00B7F466 /* InfoPlist.strings in Resources */,
+				E6D0C9D113894ACB00B7F466 /* MainWindow.xib in Resources */,
+				E6D0C9D713894ACB00B7F466 /* GenSoupViewController.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E6D0C9DA13894ACB00B7F466 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E6D0C9E813894ACB00B7F466 /* InfoPlist.strings in Resources */,
+				E6D0C9EB13894ACB00B7F466 /* GenSoupTests.h in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		E6D0C9DB13894ACB00B7F466 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		E6D0C9B513894ACB00B7F466 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E6D0C9CB13894ACB00B7F466 /* main.m in Sources */,
+				E6D0C9CE13894ACB00B7F466 /* GenSoupAppDelegate.m in Sources */,
+				E6D0C9D413894ACB00B7F466 /* GenSoupViewController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E6D0C9D813894ACB00B7F466 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E6D0C9ED13894ACB00B7F466 /* GenSoupTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		E6D0C9E213894ACB00B7F466 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = E6D0C9B813894ACB00B7F466 /* GenSoup */;
+			targetProxy = E6D0C9E113894ACB00B7F466 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		E6D0C9C613894ACB00B7F466 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				E6D0C9C713894ACB00B7F466 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		E6D0C9CF13894ACB00B7F466 /* MainWindow.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				E6D0C9D013894ACB00B7F466 /* en */,
+			);
+			name = MainWindow.xib;
+			sourceTree = "<group>";
+		};
+		E6D0C9D513894ACB00B7F466 /* GenSoupViewController.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				E6D0C9D613894ACB00B7F466 /* en */,
+			);
+			name = GenSoupViewController.xib;
+			sourceTree = "<group>";
+		};
+		E6D0C9E613894ACB00B7F466 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				E6D0C9E713894ACB00B7F466 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		E6D0C9EE13894ACB00B7F466 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = DEBUG;
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		E6D0C9EF13894ACB00B7F466 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				SDKROOT = iphoneos;
+			};
+			name = Release;
+		};
+		E6D0C9F113894ACB00B7F466 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "GenSoup/GenSoup-Prefix.pch";
+				INFOPLIST_FILE = "GenSoup/GenSoup-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		E6D0C9F213894ACB00B7F466 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "GenSoup/GenSoup-Prefix.pch";
+				INFOPLIST_FILE = "GenSoup/GenSoup-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				VALIDATE_PRODUCT = YES;
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		E6D0C9F413894ACB00B7F466 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/GenSoup.app/GenSoup";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(DEVELOPER_LIBRARY_DIR)/Frameworks",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "GenSoupTests/GenSoupTests-Prefix.pch";
+				INFOPLIST_FILE = "GenSoupTests/GenSoupTests-Info.plist";
+				OTHER_LDFLAGS = (
+					"-framework",
+					SenTestingKit,
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Debug;
+		};
+		E6D0C9F513894ACB00B7F466 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/GenSoup.app/GenSoup";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(DEVELOPER_LIBRARY_DIR)/Frameworks",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "GenSoupTests/GenSoupTests-Prefix.pch";
+				INFOPLIST_FILE = "GenSoupTests/GenSoupTests-Info.plist";
+				OTHER_LDFLAGS = (
+					"-framework",
+					SenTestingKit,
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		E6D0C9B313894ACB00B7F466 /* Build configuration list for PBXProject "GenSoup" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E6D0C9EE13894ACB00B7F466 /* Debug */,
+				E6D0C9EF13894ACB00B7F466 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E6D0C9F013894ACB00B7F466 /* Build configuration list for PBXNativeTarget "GenSoup" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E6D0C9F113894ACB00B7F466 /* Debug */,
+				E6D0C9F213894ACB00B7F466 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		E6D0C9F313894ACB00B7F466 /* Build configuration list for PBXNativeTarget "GenSoupTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E6D0C9F413894ACB00B7F466 /* Debug */,
+				E6D0C9F513894ACB00B7F466 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = E6D0C9B013894ACB00B7F466 /* Project object */;
+}
