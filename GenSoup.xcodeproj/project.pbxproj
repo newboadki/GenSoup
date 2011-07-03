@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E69137DF13BF29C0006233DC /* GenSoupViewControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = E69137DE13BF29C0006233DC /* GenSoupViewControllerTests.m */; };
+		E69137E913BF2CC6006233DC /* libOCMock.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E69137E213BF2CC6006233DC /* libOCMock.a */; };
+		E69137FD13BF4D12006233DC /* EcosystemViewTests.m in Sources */ = {isa = PBXBuildFile; fileRef = E69137FC13BF4D12006233DC /* EcosystemViewTests.m */; };
+		E691380013BFBDF6006233DC /* CellViewTests.m in Sources */ = {isa = PBXBuildFile; fileRef = E69137FF13BFBDF5006233DC /* CellViewTests.m */; };
 		E6D0C9BE13894ACB00B7F466 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E6D0C9BD13894ACB00B7F466 /* UIKit.framework */; };
 		E6D0C9C013894ACB00B7F466 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E6D0C9BF13894ACB00B7F466 /* Foundation.framework */; };
 		E6D0C9C213894ACB00B7F466 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E6D0C9C113894ACB00B7F466 /* CoreGraphics.framework */; };
@@ -22,6 +26,18 @@
 		E6D0C9E813894ACB00B7F466 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = E6D0C9E613894ACB00B7F466 /* InfoPlist.strings */; };
 		E6D0C9EB13894ACB00B7F466 /* GenSoupTests.h in Resources */ = {isa = PBXBuildFile; fileRef = E6D0C9EA13894ACB00B7F466 /* GenSoupTests.h */; };
 		E6D0C9ED13894ACB00B7F466 /* GenSoupTests.m in Sources */ = {isa = PBXBuildFile; fileRef = E6D0C9EC13894ACB00B7F466 /* GenSoupTests.m */; };
+		E6D0C9F813894B1500B7F466 /* Cell.m in Sources */ = {isa = PBXBuildFile; fileRef = E6D0C9F713894B1500B7F466 /* Cell.m */; };
+		E6D0C9F913894B1500B7F466 /* Cell.m in Sources */ = {isa = PBXBuildFile; fileRef = E6D0C9F713894B1500B7F466 /* Cell.m */; };
+		E6D0CA1C13894C8000B7F466 /* Matrix2DCoordenate.m in Sources */ = {isa = PBXBuildFile; fileRef = E6D0CA1B13894C8000B7F466 /* Matrix2DCoordenate.m */; };
+		E6D0CA1D13894C8000B7F466 /* Matrix2DCoordenate.m in Sources */ = {isa = PBXBuildFile; fileRef = E6D0CA1B13894C8000B7F466 /* Matrix2DCoordenate.m */; };
+		E6D0CA2013894D8200B7F466 /* Ecosystem.m in Sources */ = {isa = PBXBuildFile; fileRef = E6D0CA1F13894D8200B7F466 /* Ecosystem.m */; };
+		E6D0CA2113894D8200B7F466 /* Ecosystem.m in Sources */ = {isa = PBXBuildFile; fileRef = E6D0CA1F13894D8200B7F466 /* Ecosystem.m */; };
+		E6FC59C313B76A3E00E7E0F8 /* CellView.m in Sources */ = {isa = PBXBuildFile; fileRef = E6FC59C213B76A3E00E7E0F8 /* CellView.m */; };
+		E6FC59C413B76A3E00E7E0F8 /* CellView.m in Sources */ = {isa = PBXBuildFile; fileRef = E6FC59C213B76A3E00E7E0F8 /* CellView.m */; };
+		E6FC59C713B76D0700E7E0F8 /* EcosystemView.m in Sources */ = {isa = PBXBuildFile; fileRef = E6FC59C613B76D0700E7E0F8 /* EcosystemView.m */; };
+		E6FC59C813B76D0700E7E0F8 /* EcosystemView.m in Sources */ = {isa = PBXBuildFile; fileRef = E6FC59C613B76D0700E7E0F8 /* EcosystemView.m */; };
+		E6FC59CA13B770C200E7E0F8 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E6FC59C913B770C200E7E0F8 /* QuartzCore.framework */; };
+		E6FE278613A3E0B00053ADA6 /* EcosystemTests.m in Sources */ = {isa = PBXBuildFile; fileRef = E6FE278513A3E0B00053ADA6 /* EcosystemTests.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -35,26 +51,54 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		E6485EA113BBB53500CA8CED /* CellViewDelegateProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CellViewDelegateProtocol.h; sourceTree = "<group>"; };
+		E69137DD13BF29C0006233DC /* GenSoupViewControllerTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GenSoupViewControllerTests.h; sourceTree = "<group>"; };
+		E69137DE13BF29C0006233DC /* GenSoupViewControllerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GenSoupViewControllerTests.m; sourceTree = "<group>"; };
+		E69137E213BF2CC6006233DC /* libOCMock.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libOCMock.a; sourceTree = "<group>"; };
+		E69137E313BF2CC6006233DC /* NSNotificationCenter+OCMAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSNotificationCenter+OCMAdditions.h"; sourceTree = "<group>"; };
+		E69137E413BF2CC6006233DC /* OCMArg.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCMArg.h; sourceTree = "<group>"; };
+		E69137E513BF2CC6006233DC /* OCMConstraint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCMConstraint.h; sourceTree = "<group>"; };
+		E69137E613BF2CC6006233DC /* OCMock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCMock.h; sourceTree = "<group>"; };
+		E69137E713BF2CC6006233DC /* OCMockObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCMockObject.h; sourceTree = "<group>"; };
+		E69137E813BF2CC6006233DC /* OCMockRecorder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCMockRecorder.h; sourceTree = "<group>"; };
+		E69137FA13BF4005006233DC /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
+		E69137FB13BF4D12006233DC /* EcosystemViewTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EcosystemViewTests.h; sourceTree = "<group>"; };
+		E69137FC13BF4D12006233DC /* EcosystemViewTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EcosystemViewTests.m; sourceTree = "<group>"; };
+		E69137FE13BFBDF5006233DC /* CellViewTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CellViewTests.h; sourceTree = "<group>"; };
+		E69137FF13BFBDF5006233DC /* CellViewTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CellViewTests.m; sourceTree = "<group>"; };
 		E6D0C9B913894ACB00B7F466 /* GenSoup.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GenSoup.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E6D0C9BD13894ACB00B7F466 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		E6D0C9BF13894ACB00B7F466 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		E6D0C9C113894ACB00B7F466 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
-		E6D0C9C513894ACB00B7F466 /* GenSoup-Info.plist */ = {isa = PBXFileReference; path = "GenSoup-Info.plist"; sourceTree = "<group>"; };
+		E6D0C9C513894ACB00B7F466 /* GenSoup-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GenSoup-Info.plist"; sourceTree = "<group>"; };
 		E6D0C9C713894ACB00B7F466 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		E6D0C9C913894ACB00B7F466 /* GenSoup-Prefix.pch */ = {isa = PBXFileReference; path = "GenSoup-Prefix.pch"; sourceTree = "<group>"; };
+		E6D0C9C913894ACB00B7F466 /* GenSoup-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "GenSoup-Prefix.pch"; sourceTree = "<group>"; };
 		E6D0C9CA13894ACB00B7F466 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		E6D0C9CC13894ACB00B7F466 /* GenSoupAppDelegate.h */ = {isa = PBXFileReference; path = GenSoupAppDelegate.h; sourceTree = "<group>"; };
+		E6D0C9CC13894ACB00B7F466 /* GenSoupAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GenSoupAppDelegate.h; sourceTree = "<group>"; };
 		E6D0C9CD13894ACB00B7F466 /* GenSoupAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GenSoupAppDelegate.m; sourceTree = "<group>"; };
 		E6D0C9D013894ACB00B7F466 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainWindow.xib; sourceTree = "<group>"; };
-		E6D0C9D213894ACB00B7F466 /* GenSoupViewController.h */ = {isa = PBXFileReference; path = GenSoupViewController.h; sourceTree = "<group>"; };
+		E6D0C9D213894ACB00B7F466 /* GenSoupViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GenSoupViewController.h; sourceTree = "<group>"; };
 		E6D0C9D313894ACB00B7F466 /* GenSoupViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GenSoupViewController.m; sourceTree = "<group>"; };
 		E6D0C9D613894ACB00B7F466 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/GenSoupViewController.xib; sourceTree = "<group>"; };
 		E6D0C9DD13894ACB00B7F466 /* GenSoupTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GenSoupTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
-		E6D0C9E513894ACB00B7F466 /* GenSoupTests-Info.plist */ = {isa = PBXFileReference; path = "GenSoupTests-Info.plist"; sourceTree = "<group>"; };
+		E6D0C9E513894ACB00B7F466 /* GenSoupTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GenSoupTests-Info.plist"; sourceTree = "<group>"; };
 		E6D0C9E713894ACB00B7F466 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		E6D0C9E913894ACB00B7F466 /* GenSoupTests-Prefix.pch */ = {isa = PBXFileReference; path = "GenSoupTests-Prefix.pch"; sourceTree = "<group>"; };
+		E6D0C9E913894ACB00B7F466 /* GenSoupTests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "GenSoupTests-Prefix.pch"; sourceTree = "<group>"; };
 		E6D0C9EA13894ACB00B7F466 /* GenSoupTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GenSoupTests.h; sourceTree = "<group>"; };
 		E6D0C9EC13894ACB00B7F466 /* GenSoupTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GenSoupTests.m; sourceTree = "<group>"; };
+		E6D0C9F613894B1500B7F466 /* Cell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Cell.h; sourceTree = "<group>"; };
+		E6D0C9F713894B1500B7F466 /* Cell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Cell.m; sourceTree = "<group>"; };
+		E6D0CA1A13894C8000B7F466 /* Matrix2DCoordenate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Matrix2DCoordenate.h; sourceTree = "<group>"; };
+		E6D0CA1B13894C8000B7F466 /* Matrix2DCoordenate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Matrix2DCoordenate.m; sourceTree = "<group>"; };
+		E6D0CA1E13894D8200B7F466 /* Ecosystem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Ecosystem.h; sourceTree = "<group>"; };
+		E6D0CA1F13894D8200B7F466 /* Ecosystem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Ecosystem.m; sourceTree = "<group>"; };
+		E6FC59C113B76A3E00E7E0F8 /* CellView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CellView.h; sourceTree = "<group>"; };
+		E6FC59C213B76A3E00E7E0F8 /* CellView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CellView.m; sourceTree = "<group>"; };
+		E6FC59C513B76D0700E7E0F8 /* EcosystemView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EcosystemView.h; sourceTree = "<group>"; };
+		E6FC59C613B76D0700E7E0F8 /* EcosystemView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EcosystemView.m; sourceTree = "<group>"; };
+		E6FC59C913B770C200E7E0F8 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		E6FE278413A3E0B00053ADA6 /* EcosystemTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EcosystemTests.h; sourceTree = "<group>"; };
+		E6FE278513A3E0B00053ADA6 /* EcosystemTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EcosystemTests.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,6 +106,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E6FC59CA13B770C200E7E0F8 /* QuartzCore.framework in Frameworks */,
 				E6D0C9BE13894ACB00B7F466 /* UIKit.framework in Frameworks */,
 				E6D0C9C013894ACB00B7F466 /* Foundation.framework in Frameworks */,
 				E6D0C9C213894ACB00B7F466 /* CoreGraphics.framework in Frameworks */,
@@ -75,15 +120,52 @@
 				E6D0C9DE13894ACB00B7F466 /* UIKit.framework in Frameworks */,
 				E6D0C9DF13894ACB00B7F466 /* Foundation.framework in Frameworks */,
 				E6D0C9E013894ACB00B7F466 /* CoreGraphics.framework in Frameworks */,
+				E69137E913BF2CC6006233DC /* libOCMock.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		E6485E9F13BBB51700CA8CED /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				E6485EA113BBB53500CA8CED /* CellViewDelegateProtocol.h */,
+			);
+			name = Protocols;
+			sourceTree = "<group>";
+		};
+		E6485EA213BBB77C00CA8CED /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				E6D0C9F613894B1500B7F466 /* Cell.h */,
+				E6D0C9F713894B1500B7F466 /* Cell.m */,
+				E6D0CA1A13894C8000B7F466 /* Matrix2DCoordenate.h */,
+				E6D0CA1B13894C8000B7F466 /* Matrix2DCoordenate.m */,
+				E6D0CA1E13894D8200B7F466 /* Ecosystem.h */,
+				E6D0CA1F13894D8200B7F466 /* Ecosystem.m */,
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
+		E69137E113BF2CC6006233DC /* OCMock */ = {
+			isa = PBXGroup;
+			children = (
+				E69137E213BF2CC6006233DC /* libOCMock.a */,
+				E69137E313BF2CC6006233DC /* NSNotificationCenter+OCMAdditions.h */,
+				E69137E413BF2CC6006233DC /* OCMArg.h */,
+				E69137E513BF2CC6006233DC /* OCMConstraint.h */,
+				E69137E613BF2CC6006233DC /* OCMock.h */,
+				E69137E713BF2CC6006233DC /* OCMockObject.h */,
+				E69137E813BF2CC6006233DC /* OCMockRecorder.h */,
+			);
+			path = OCMock;
+			sourceTree = "<group>";
+		};
 		E6D0C9AE13894ACB00B7F466 = {
 			isa = PBXGroup;
 			children = (
+				E6FC59C913B770C200E7E0F8 /* QuartzCore.framework */,
 				E6D0C9C313894ACB00B7F466 /* GenSoup */,
 				E6D0C9E313894ACB00B7F466 /* GenSoupTests */,
 				E6D0C9BC13894ACB00B7F466 /* Frameworks */,
@@ -113,13 +195,15 @@
 		E6D0C9C313894ACB00B7F466 /* GenSoup */ = {
 			isa = PBXGroup;
 			children = (
+				E6485EA213BBB77C00CA8CED /* Models */,
+				E6485E9F13BBB51700CA8CED /* Protocols */,
+				E6FC59C013B76A0700E7E0F8 /* Views */,
+				E6FC59B713B7680100E7E0F8 /* ViewControllers */,
 				E6D0C9CC13894ACB00B7F466 /* GenSoupAppDelegate.h */,
 				E6D0C9CD13894ACB00B7F466 /* GenSoupAppDelegate.m */,
 				E6D0C9CF13894ACB00B7F466 /* MainWindow.xib */,
-				E6D0C9D213894ACB00B7F466 /* GenSoupViewController.h */,
-				E6D0C9D313894ACB00B7F466 /* GenSoupViewController.m */,
-				E6D0C9D513894ACB00B7F466 /* GenSoupViewController.xib */,
 				E6D0C9C413894ACB00B7F466 /* Supporting Files */,
+				E69137FA13BF4005006233DC /* Constants.h */,
 			);
 			path = GenSoup;
 			sourceTree = "<group>";
@@ -138,9 +222,18 @@
 		E6D0C9E313894ACB00B7F466 /* GenSoupTests */ = {
 			isa = PBXGroup;
 			children = (
+				E69137E113BF2CC6006233DC /* OCMock */,
 				E6D0C9EA13894ACB00B7F466 /* GenSoupTests.h */,
 				E6D0C9EC13894ACB00B7F466 /* GenSoupTests.m */,
 				E6D0C9E413894ACB00B7F466 /* Supporting Files */,
+				E6FE278413A3E0B00053ADA6 /* EcosystemTests.h */,
+				E6FE278513A3E0B00053ADA6 /* EcosystemTests.m */,
+				E69137DD13BF29C0006233DC /* GenSoupViewControllerTests.h */,
+				E69137DE13BF29C0006233DC /* GenSoupViewControllerTests.m */,
+				E69137FB13BF4D12006233DC /* EcosystemViewTests.h */,
+				E69137FC13BF4D12006233DC /* EcosystemViewTests.m */,
+				E69137FE13BFBDF5006233DC /* CellViewTests.h */,
+				E69137FF13BFBDF5006233DC /* CellViewTests.m */,
 			);
 			path = GenSoupTests;
 			sourceTree = "<group>";
@@ -153,6 +246,27 @@
 				E6D0C9E913894ACB00B7F466 /* GenSoupTests-Prefix.pch */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		E6FC59B713B7680100E7E0F8 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				E6D0C9D213894ACB00B7F466 /* GenSoupViewController.h */,
+				E6D0C9D313894ACB00B7F466 /* GenSoupViewController.m */,
+				E6D0C9D513894ACB00B7F466 /* GenSoupViewController.xib */,
+			);
+			name = ViewControllers;
+			sourceTree = "<group>";
+		};
+		E6FC59C013B76A0700E7E0F8 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				E6FC59C113B76A3E00E7E0F8 /* CellView.h */,
+				E6FC59C213B76A3E00E7E0F8 /* CellView.m */,
+				E6FC59C513B76D0700E7E0F8 /* EcosystemView.h */,
+				E6FC59C613B76D0700E7E0F8 /* EcosystemView.m */,
+			);
+			name = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -266,6 +380,11 @@
 				E6D0C9CB13894ACB00B7F466 /* main.m in Sources */,
 				E6D0C9CE13894ACB00B7F466 /* GenSoupAppDelegate.m in Sources */,
 				E6D0C9D413894ACB00B7F466 /* GenSoupViewController.m in Sources */,
+				E6D0C9F813894B1500B7F466 /* Cell.m in Sources */,
+				E6D0CA1C13894C8000B7F466 /* Matrix2DCoordenate.m in Sources */,
+				E6D0CA2013894D8200B7F466 /* Ecosystem.m in Sources */,
+				E6FC59C313B76A3E00E7E0F8 /* CellView.m in Sources */,
+				E6FC59C713B76D0700E7E0F8 /* EcosystemView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -274,6 +393,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				E6D0C9ED13894ACB00B7F466 /* GenSoupTests.m in Sources */,
+				E6D0C9F913894B1500B7F466 /* Cell.m in Sources */,
+				E6D0CA1D13894C8000B7F466 /* Matrix2DCoordenate.m in Sources */,
+				E6D0CA2113894D8200B7F466 /* Ecosystem.m in Sources */,
+				E6FE278613A3E0B00053ADA6 /* EcosystemTests.m in Sources */,
+				E6FC59C413B76A3E00E7E0F8 /* CellView.m in Sources */,
+				E6FC59C813B76D0700E7E0F8 /* EcosystemView.m in Sources */,
+				E69137DF13BF29C0006233DC /* GenSoupViewControllerTests.m in Sources */,
+				E69137FD13BF4D12006233DC /* EcosystemViewTests.m in Sources */,
+				E691380013BFBDF6006233DC /* CellViewTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -363,7 +491,15 @@
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "GenSoup/GenSoup-Prefix.pch";
+				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
+				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/GenSoupTests/OCMock\"";
 				INFOPLIST_FILE = "GenSoup/GenSoup-Info.plist";
+				LIBRARY_SEARCH_PATHS = "\"$(SRCROOT)/GenSoupTests/OCMock\"";
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-force_load",
+					"$(PROJECT_DIR)/GenSoupTests/OCMock/libOCMock.a",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -376,7 +512,15 @@
 				COPY_PHASE_STRIP = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "GenSoup/GenSoup-Prefix.pch";
+				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
+				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/GenSoupTests/OCMock\"";
 				INFOPLIST_FILE = "GenSoup/GenSoup-Info.plist";
+				LIBRARY_SEARCH_PATHS = "\"$(SRCROOT)/GenSoupTests/OCMock\"";
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-force_load",
+					"$(PROJECT_DIR)/GenSoupTests/OCMock/libOCMock.a",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				VALIDATE_PRODUCT = YES;
 				WRAPPER_EXTENSION = app;
@@ -395,6 +539,10 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "GenSoupTests/GenSoupTests-Prefix.pch";
 				INFOPLIST_FILE = "GenSoupTests/GenSoupTests-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/GenSoupTests/OCMock\"",
+				);
 				OTHER_LDFLAGS = (
 					"-framework",
 					SenTestingKit,
@@ -417,6 +565,10 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "GenSoupTests/GenSoupTests-Prefix.pch";
 				INFOPLIST_FILE = "GenSoupTests/GenSoupTests-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/GenSoupTests/OCMock\"",
+				);
 				OTHER_LDFLAGS = (
 					"-framework",
 					SenTestingKit,
@@ -446,6 +598,7 @@
 				E6D0C9F213894ACB00B7F466 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		E6D0C9F313894ACB00B7F466 /* Build configuration list for PBXNativeTarget "GenSoupTests" */ = {
 			isa = XCConfigurationList;
@@ -454,6 +607,7 @@
 				E6D0C9F513894ACB00B7F466 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
