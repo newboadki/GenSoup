@@ -8,6 +8,9 @@
 
 #import "GenSoupViewController.h"
 
+#define NUMBER_OF_ROWS   48
+#define NUMBER_OF_COLUMS 32
+
 @interface GenSoupViewController()
 - (void) produceNextGeneration;
 - (void) startLife;
@@ -35,13 +38,16 @@
     // Configure this controller's view layout
     [self configureScrollView];
     
+    // Compose the view. This method needs to be called before anything else on the ecosystemView. As many methods relay on that view having subviews
+    [ecosystemView setUpCellViewsWith:NUMBER_OF_ROWS columns:NUMBER_OF_COLUMS cellViewWidth:10.0 cellViewHeight:10.0];
+    
+    // Set the tap delegate for this controller's view
+    [ecosystemView setTapDelegate:self];        
+    
     // Set initial population to empty set
     NSMutableSet* set = [[NSMutableSet alloc] init];
     [self setInitialPopulation:set];
-    [set release];
-    
-    // Set tap delegate for this controller's view
-    [ecosystemView setTapDelegate:self];
+    [set release];    
 }
 
 
@@ -71,11 +77,14 @@
     /***********************************************************************************************/
     /* Configure an NSTimer that will create a new generation each 0.3 seconds.                    */
 	/***********************************************************************************************/   
-    Ecosystem* eco = [[Ecosystem alloc] initWithRows:48 andColumns:32 andInitialPopulation:initialPopulation];    
+    Ecosystem* eco = [[Ecosystem alloc] initWithRows:NUMBER_OF_ROWS andColumns:NUMBER_OF_COLUMS andInitialPopulation:initialPopulation];        
     [self setEcosystem:eco];
     [eco release];
     
-    [NSTimer scheduledTimerWithTimeInterval:0.3 target:self selector:@selector(produceNextGeneration) userInfo:nil repeats:YES];
+    [self.ecosystem setDelegate:self];
+    [self.ecosystem produceNextGeneration];
+    //[self produceNextGeneration];
+    //[NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(produceNextGeneration) userInfo:nil repeats:YES];
 }
 
 
@@ -83,9 +92,15 @@
 {
     /***********************************************************************************************/
     /* Update the model and the view, concordantly.                                                */
-	/***********************************************************************************************/   
+	/***********************************************************************************************/
+    //[NSThread detachNewThreadSelector:@selector(produceNextGeneration) toTarget:self.ecosystem withObject:nil];
+}
+
+
+- (void) handleNewGeneration
+{
+    [self.ecosystemView refreshView:self.ecosystem];    
     [self.ecosystem produceNextGeneration];
-    [self.ecosystemView refreshView:self.ecosystem];
 }
 
 
@@ -120,6 +135,8 @@
     {
         [initialPopulation addObject:cell];
     }
+    
+    [cell release];
 }
 
 
@@ -148,6 +165,7 @@
     [scrollView setMaximumZoomScale:4.0];
     [scrollView setZoomScale:1.0];
 }
+
 
 
 #pragma mark - Memory Management

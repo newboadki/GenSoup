@@ -14,7 +14,6 @@
 #import "Ecosystem.h"
 #import "CellViewDelegateProtocol.h"
 
-
 @interface GenSoupViewController : UIViewController <UIScrollViewDelegate, CellViewDelegateProtocol>
 {        
 }
@@ -22,5 +21,7 @@
 @property (retain, nonatomic) Ecosystem* ecosystem;
 @property (retain, nonatomic) IBOutlet EcosystemView* ecosystemView;
 @property (retain, nonatomic) NSMutableSet* initialPopulation;
+
+- (void) handleNewGeneration;
 
 @end

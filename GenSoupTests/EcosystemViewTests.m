@@ -26,7 +26,7 @@
 
 - (void) testSetUpCellViews
 {
-    [view setUpCellViews];
+    [view setUpCellViewsWith:48 columns:32 cellViewWidth:10.0 cellViewHeight:10.0];
     STAssertTrue([[view subviews] count] == 48*32, @"setUpcEllViews should create the cellsViews %i", [[view subviews] count]);
     
     CellView* cv = (CellView*)[[view subviews] objectAtIndex:0];
@@ -50,7 +50,7 @@
     [view setActiveCellViews:activeCells];
     Ecosystem* ecosystem = [[Ecosystem alloc] initWithRows:48 andColumns:32 andInitialPopulation:initialPopulation];
 
-    [view setUpCellViews];
+    [view setUpCellViewsWith:48 columns:32 cellViewWidth:10.0 cellViewHeight:10.0];
     [view refreshView:ecosystem];
     
     STAssertTrue([activeCells count]==1, @"active cells shouls have count of 1, found %i", [activeCells count]==1);
@@ -73,7 +73,7 @@
 {
     GenSoupViewController* controller = [[GenSoupViewController alloc] init];
 
-    [view setUpCellViews];
+    [view setUpCellViewsWith:48 columns:32 cellViewWidth:10.0 cellViewHeight:10.0];
     [view setTapDelegate:controller];
     id delegate = [view valueForKey:@"tapDelegate"];
     CellView* cellView1 = [[view subviews] objectAtIndex:4];

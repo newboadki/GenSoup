@@ -22,6 +22,7 @@
 @interface GenSoupViewControllerTests : SenTestCase
 {
     GenSoupViewController* controller;
+    BOOL detachNewThreadSelectorCalled;
 }
 
 @end

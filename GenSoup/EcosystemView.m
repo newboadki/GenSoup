@@ -9,13 +9,20 @@
 #import "EcosystemView.h"
 
 @interface EcosystemView()
-- (void) setUpCellViews;
+@property int rows;
+@property int columns;
+@property float cellViewWidth;
+@property float cellViewHeight;
 @end
 
 @implementation EcosystemView
 
 @synthesize activeCellViews;
 @synthesize tapDelegate;
+@synthesize rows;
+@synthesize columns;
+@synthesize cellViewWidth;
+@synthesize cellViewHeight;
 
 
 
@@ -30,9 +37,6 @@
     
     if (self)
     {
-        // Set up the cell views to build the view.
-        [self setUpCellViews];
-        
         // Set an empty set as the current active cells
         NSMutableSet* set = [[NSMutableSet alloc] init];
         [self setActiveCellViews:set];
@@ -54,11 +58,11 @@
 	/***********************************************************************************************/
     self->tapDelegate = del;
     
-    for (int i=0; i<48; i++)
+    for (int i=0; i<self.rows; i++)
     {
-        for (int j=0; j<32; j++)
+        for (int j=0; j<self.columns; j++)
         {            
-            CellView* cv = (CellView*)[[self subviews] objectAtIndex:i*32 + j];
+            CellView* cv = (CellView*)[[self subviews] objectAtIndex:i*self.columns + j];
             [cv setTapDelegate:self.tapDelegate];
         }
     }    
@@ -68,16 +72,21 @@
 
 #pragma mark - View Updaters
 
-- (void) setUpCellViews
+- (void) setUpCellViewsWith:(int)numberOfRows columns:(int)numberOfcols cellViewWidth:(float)width cellViewHeight:(float)height
 {
     /***********************************************************************************************/
     /* Compose the view.                                                                           */
 	/***********************************************************************************************/
-    for (int i=0; i<48; i++)
+    [self setRows:numberOfRows];
+    [self setColumns:numberOfcols];
+    [self setCellViewWidth:width];
+    [self setCellViewHeight:height];
+    
+    for (int i=0; i<self.rows; i++)
     {
-        for (int j=0; j<32; j++)
+        for (int j=0; j<self.columns; j++)
         {            
-            CGRect cellFrame = CGRectMake(j*10, i*10, 10, 10);
+            CGRect cellFrame = CGRectMake(j*self.cellViewWidth, i*self.cellViewHeight, self.cellViewWidth, self.cellViewHeight);
             Matrix2DCoordenate* cellCoordinate = [[Matrix2DCoordenate alloc] initWithRow:i andColumn:j];
             CellView* cv = [[CellView alloc] initWithFrame:cellFrame andColor:[UIColor grayColor] andCoordinate:cellCoordinate];
             
@@ -107,7 +116,7 @@
     for (Cell* cell in ecosystem.aliveCells)
     {
         Matrix2DCoordenate* coord = cell.coordinate;
-        CellView* cv = [[self subviews] objectAtIndex:coord.row*32 + coord.column];
+        CellView* cv = [[self subviews] objectAtIndex:coord.row*self.columns + coord.column];
         [cv setBackgroundColor:[UIColor yellowColor]];
         [activeCellViews addObject:cv];
     }
@@ -119,7 +128,7 @@
     /***********************************************************************************************/
     /* changeColorOfCellViewAtCoordinate.                                                          */
 	/***********************************************************************************************/
-    CellView* cv = [[self subviews] objectAtIndex:coord.row*32 + coord.column];
+    CellView* cv = [[self subviews] objectAtIndex:coord.row*self.columns + coord.column];
     [cv setBackgroundColor:[UIColor yellowColor]];
 }
 

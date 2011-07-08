@@ -19,6 +19,31 @@
 {
 }
 
+- (void) testInitWithRowsColumnsAndInitialPopulation
+{
+    NSMutableSet* set = [[NSMutableSet alloc] init];
+    Ecosystem* eco = [[Ecosystem alloc] initWithRows:50 andColumns:50 andInitialPopulation:set];
+    
+    NSMutableSet* initialPopulation = [eco valueForKey:@"initialPopulation"];
+    NSMutableSet* aliveCells = [eco valueForKey:@"aliveCells"];
+    NSMutableSet* emptyWith3Alive = [eco valueForKey:@"emptyWith3Alive"];
+    NSMutableSet* nextGenAliveCells = [eco valueForKey:@"nextGenAliveCells"];
+    NSMutableSet* nextGenEmptyWith3Alive = [eco valueForKey:@"nextGenEmptyWith3Alive"];
+    NSNumber*     rows = [eco valueForKey:@"rows"];
+    NSNumber*     columns = [eco valueForKey:@"columns"];
+    
+    STAssertNotNil(initialPopulation, @"the init method should set the initialPopulation");
+    STAssertNotNil(aliveCells, @"the init method should set the aliveCells");
+    STAssertNotNil(emptyWith3Alive, @"the init method should set the emptyWith3Alive");
+    STAssertNotNil(nextGenAliveCells, @"the init method should set the nextGenAliveCells");
+    STAssertNotNil(nextGenEmptyWith3Alive, @"the init method should set the nextGenEmptyWith3Alive");
+    STAssertNotNil(rows, @"the init method should set the rows");
+    STAssertNotNil(columns, @"the init method should set the columns");
+    
+    [eco release];
+    [set release];
+}
+
 - (void) testRowValid
 {
     Ecosystem* eco = [[Ecosystem alloc] initWithRows:50 andColumns:50 andInitialPopulation:nil];

@@ -32,6 +32,7 @@
 		E6D0CA1D13894C8000B7F466 /* Matrix2DCoordenate.m in Sources */ = {isa = PBXBuildFile; fileRef = E6D0CA1B13894C8000B7F466 /* Matrix2DCoordenate.m */; };
 		E6D0CA2013894D8200B7F466 /* Ecosystem.m in Sources */ = {isa = PBXBuildFile; fileRef = E6D0CA1F13894D8200B7F466 /* Ecosystem.m */; };
 		E6D0CA2113894D8200B7F466 /* Ecosystem.m in Sources */ = {isa = PBXBuildFile; fileRef = E6D0CA1F13894D8200B7F466 /* Ecosystem.m */; };
+		E6D7927E13C64761008986FF /* MethodSwizzleHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = E6D7927D13C64761008986FF /* MethodSwizzleHelper.m */; };
 		E6FC59C313B76A3E00E7E0F8 /* CellView.m in Sources */ = {isa = PBXBuildFile; fileRef = E6FC59C213B76A3E00E7E0F8 /* CellView.m */; };
 		E6FC59C413B76A3E00E7E0F8 /* CellView.m in Sources */ = {isa = PBXBuildFile; fileRef = E6FC59C213B76A3E00E7E0F8 /* CellView.m */; };
 		E6FC59C713B76D0700E7E0F8 /* EcosystemView.m in Sources */ = {isa = PBXBuildFile; fileRef = E6FC59C613B76D0700E7E0F8 /* EcosystemView.m */; };
@@ -92,6 +93,8 @@
 		E6D0CA1B13894C8000B7F466 /* Matrix2DCoordenate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Matrix2DCoordenate.m; sourceTree = "<group>"; };
 		E6D0CA1E13894D8200B7F466 /* Ecosystem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Ecosystem.h; sourceTree = "<group>"; };
 		E6D0CA1F13894D8200B7F466 /* Ecosystem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Ecosystem.m; sourceTree = "<group>"; };
+		E6D7927C13C64761008986FF /* MethodSwizzleHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MethodSwizzleHelper.h; sourceTree = "<group>"; };
+		E6D7927D13C64761008986FF /* MethodSwizzleHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MethodSwizzleHelper.m; sourceTree = "<group>"; };
 		E6FC59C113B76A3E00E7E0F8 /* CellView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CellView.h; sourceTree = "<group>"; };
 		E6FC59C213B76A3E00E7E0F8 /* CellView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CellView.m; sourceTree = "<group>"; };
 		E6FC59C513B76D0700E7E0F8 /* EcosystemView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EcosystemView.h; sourceTree = "<group>"; };
@@ -234,6 +237,8 @@
 				E69137FC13BF4D12006233DC /* EcosystemViewTests.m */,
 				E69137FE13BFBDF5006233DC /* CellViewTests.h */,
 				E69137FF13BFBDF5006233DC /* CellViewTests.m */,
+				E6D7927C13C64761008986FF /* MethodSwizzleHelper.h */,
+				E6D7927D13C64761008986FF /* MethodSwizzleHelper.m */,
 			);
 			path = GenSoupTests;
 			sourceTree = "<group>";
@@ -402,6 +407,7 @@
 				E69137DF13BF29C0006233DC /* GenSoupViewControllerTests.m in Sources */,
 				E69137FD13BF4D12006233DC /* EcosystemViewTests.m in Sources */,
 				E691380013BFBDF6006233DC /* CellViewTests.m in Sources */,
+				E6D7927E13C64761008986FF /* MethodSwizzleHelper.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

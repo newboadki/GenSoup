@@ -32,7 +32,9 @@
     if (self)
     {
         [self setCoordinate:coord];
+        [self setOpaque:YES];
         [self.layer setBorderWidth:0.5];
+        [self.layer setCornerRadius:3.0];
         [self.layer setBorderColor:[[UIColor blackColor] CGColor]];        
         [self setBackgroundColor:theColor];
         

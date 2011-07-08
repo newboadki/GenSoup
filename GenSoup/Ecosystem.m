@@ -7,8 +7,9 @@
 //
 
 #import "Ecosystem.h"
+#import "GenSoupViewController.h"
 
-@interface Ecosystem(private)
+@interface Ecosystem()
 - (int) numberOfNeighbours:(Matrix2DCoordenate*)position inSet:(NSMutableSet*)cellSet;
 - (BOOL)areNeighboursCoordinate:(Matrix2DCoordenate*)coor1 withCoordinate:(Matrix2DCoordenate*)coor2;
 - (void) createNewAliveForNextGeneration;
@@ -19,6 +20,9 @@
 - (BOOL) rowValid:(int) row;
 - (BOOL) colValid:(int) col;
 - (void) calculateEmptyWith3ForAliveSet:(NSMutableSet*)aliveSet andEmptyWith3Set:(NSMutableSet*)emptySet;
+
+@property BOOL busyCalculatingNextGeneration;
+
 @end
 
 
@@ -26,6 +30,8 @@
 @implementation Ecosystem
 
 @synthesize aliveCells;
+@synthesize delegate;
+@synthesize busyCalculatingNextGeneration;
 
 #pragma mark - Init Methods
 
@@ -41,15 +47,19 @@
         if([population count] > numberOfCellInMatrix)
             @throw @"The given population has more elements than the matrix defined by the given rows and columns.";
             
-        //[[self emptySurroundingCoordinatesForPopulation:(NSSet*)[self->aliveCells copy]] mutableCopy];
-        self->aliveCells = [[NSMutableSet setWithSet:population] retain];
+        self->initialPopulation = [population mutableCopy];
+        self->aliveCells = [population mutableCopy];
+        
         self->emptyWith3Alive = [[NSMutableSet alloc] init];
         self->nextGenAliveCells = [[NSMutableSet alloc] init];
         self->nextGenEmptyWith3Alive = [[NSMutableSet alloc] init];
         self->rows = theRows;
         self->columns = theColumns;
-        
+        [self setBusyCalculatingNextGeneration:NO];
         [self calculateEmptyWith3ForAliveSet:self->aliveCells andEmptyWith3Set:self->emptyWith3Alive];
+        
+        operationQueue = [[NSOperationQueue alloc] init];
+        [operationQueue setMaxConcurrentOperationCount:1];
     }
     
     return self;
@@ -73,11 +83,17 @@
     /***********************************************************************************************/
     /* Iterate through occuped cells and updates it.                                               */
 	/***********************************************************************************************/
-    [self createNewAliveForNextGeneration];
-    [self updateCurrentCellStateForNextGeneration];
-    [self eliminateEmptyCoordinatesForNextGeneration];
-    [self findEmptyPostionsWithThreeAliveForNextGeneration];
-    [self swapCurrentAndNextGenerationSets];
+    NSBlockOperation* op = [NSBlockOperation blockOperationWithBlock:^{
+        [self createNewAliveForNextGeneration];
+        [self updateCurrentCellStateForNextGeneration];
+        [self eliminateEmptyCoordinatesForNextGeneration];
+        [self findEmptyPostionsWithThreeAliveForNextGeneration];
+        [self swapCurrentAndNextGenerationSets];    
+        
+        [delegate performSelectorOnMainThread:@selector(handleNewGeneration) withObject:nil waitUntilDone:YES];    
+    }];
+    
+    [operationQueue addOperation:op];        
 }
 
 
@@ -361,6 +377,8 @@
     /***********************************************************************************************/
     /* Tidy-up.                                                                                    */
 	/***********************************************************************************************/    
+    [self->initialPopulation release];
+    self->initialPopulation = nil;
     [self->aliveCells release];
     self->aliveCells = nil;
     [self->emptyWith3Alive release];
@@ -370,7 +388,9 @@
     self->nextGenAliveCells = nil;
     [self->nextGenEmptyWith3Alive release];
     self->nextGenEmptyWith3Alive = nil;
-
+    [operationQueue release];
+    operationQueue = nil;
+    
     [super dealloc];
 }
 
