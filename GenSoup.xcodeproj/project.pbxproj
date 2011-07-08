@@ -168,7 +168,6 @@
 		E6D0C9AE13894ACB00B7F466 = {
 			isa = PBXGroup;
 			children = (
-				E6FC59C913B770C200E7E0F8 /* QuartzCore.framework */,
 				E6D0C9C313894ACB00B7F466 /* GenSoup */,
 				E6D0C9E313894ACB00B7F466 /* GenSoupTests */,
 				E6D0C9BC13894ACB00B7F466 /* Frameworks */,
@@ -188,6 +187,7 @@
 		E6D0C9BC13894ACB00B7F466 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				E6FC59C913B770C200E7E0F8 /* QuartzCore.framework */,
 				E6D0C9BD13894ACB00B7F466 /* UIKit.framework */,
 				E6D0C9BF13894ACB00B7F466 /* Foundation.framework */,
 				E6D0C9C113894ACB00B7F466 /* CoreGraphics.framework */,
