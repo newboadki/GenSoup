@@ -8,6 +8,7 @@
 
 #import "Ecosystem.h"
 #import "GenSoupViewController.h"
+#import <mach/mach_time.h>
 
 @interface Ecosystem()
 - (int) numberOfNeighbours:(Matrix2DCoordenate*)position inSet:(NSMutableSet*)cellSet;
@@ -15,11 +16,10 @@
 - (void) createNewAliveForNextGeneration;
 - (void) updateCurrentCellStateForNextGeneration;
 - (void) eliminateEmptyCoordinatesForNextGeneration;
-- (void) findEmptyPostionsWithThreeAliveForNextGeneration;
 - (void) swapCurrentAndNextGenerationSets;
 - (BOOL) rowValid:(int) row;
 - (BOOL) colValid:(int) col;
-- (void) calculateEmptyWith3ForAliveSet:(NSMutableSet*)aliveSet andEmptyWith3Set:(NSMutableSet*)emptySet;
+- (void) findEmptyPostionsWith3AliveForSet:(NSMutableSet*)aliveSet andEmptyWith3Set:(NSMutableSet*)emptySet;
 
 @property BOOL busyCalculatingNextGeneration;
 
@@ -32,6 +32,8 @@
 @synthesize aliveCells;
 @synthesize delegate;
 @synthesize busyCalculatingNextGeneration;
+
+
 
 #pragma mark - Init Methods
 
@@ -56,7 +58,7 @@
         self->rows = theRows;
         self->columns = theColumns;
         [self setBusyCalculatingNextGeneration:NO];
-        [self calculateEmptyWith3ForAliveSet:self->aliveCells andEmptyWith3Set:self->emptyWith3Alive];
+        [self findEmptyPostionsWith3AliveForSet:self->aliveCells andEmptyWith3Set:self->emptyWith3Alive];
         
         operationQueue = [[NSOperationQueue alloc] init];
         [operationQueue setMaxConcurrentOperationCount:1];
@@ -82,17 +84,17 @@
 {
     /***********************************************************************************************/
     /* Iterate through occuped cells and updates it.                                               */
-	/***********************************************************************************************/
+	/***********************************************************************************************/    
     NSBlockOperation* op = [NSBlockOperation blockOperationWithBlock:^{
         [self createNewAliveForNextGeneration];
         [self updateCurrentCellStateForNextGeneration];
         [self eliminateEmptyCoordinatesForNextGeneration];
-        [self findEmptyPostionsWithThreeAliveForNextGeneration];
+        [self findEmptyPostionsWith3AliveForSet:self->nextGenAliveCells andEmptyWith3Set:self->nextGenEmptyWith3Alive];
         [self swapCurrentAndNextGenerationSets];    
-        
+                
         [delegate performSelectorOnMainThread:@selector(handleNewGeneration) withObject:nil waitUntilDone:YES];    
     }];
-    
+
     [operationQueue addOperation:op];        
 }
 
@@ -216,19 +218,19 @@
 }
 
 
-- (void) findEmptyPostionsWithThreeAliveForNextGeneration
+- (void) findEmptyPostionsWith3AliveForSet:(NSMutableSet*)aliveSet andEmptyWith3Set:(NSMutableSet*)emptySet
 {
     /***********************************************************************************************/
     /* For each cell in the new generation array (newAliceCells). we recalculate the number        */
     /* neighbours and check if they have 3 cells around.                                           */
 	/***********************************************************************************************/
-    for (Cell* cell in self->nextGenAliveCells)
+    for (Cell* cell in aliveSet)
     {
         int initialRow = cell.coordinate.row - 1;
         int initialCol = cell.coordinate.column - 1;
         int endRow = cell.coordinate.row + 1;
         int endCol = cell.coordinate.column + 1;
-        
+        NSMutableSet* visitedCoordinates = [[NSMutableSet alloc] init];
         for (int i=initialRow; i<=endRow; i++)
         {
             if ([self rowValid:i])
@@ -239,23 +241,26 @@
                     {
                         Matrix2DCoordenate* coordinate = [[Matrix2DCoordenate alloc] initWithRow:i andColumn:j];
                         Cell* auxCell = [[Cell alloc] initWithCoordinate:coordinate andOrganismID:-1];
-
-                        if(([self->nextGenAliveCells member:auxCell]==nil) && ([self->nextGenEmptyWith3Alive member:coordinate] == nil))
+                        
+                        if(![visitedCoordinates member:coordinate] && ![aliveSet member:auxCell] && ![emptySet member:coordinate])
                         {                            
-                            int n = [self numberOfNeighbours:coordinate inSet:self->nextGenAliveCells];
+                            int n = [self numberOfNeighbours:coordinate inSet:aliveSet];
                             
                             if (n == 3)
                             {
-                                [self->nextGenEmptyWith3Alive addObject:coordinate];
+                                [emptySet addObject:coordinate];
                             }                                                        
                         }
                         
+                        [visitedCoordinates addObject:coordinate];
                         [auxCell release];
                         [coordinate release];
                     }
                 }
             }
         }
+        
+        [visitedCoordinates release];
     }
 }
 
@@ -329,45 +334,6 @@
     NSLog(@"%@", rowString);
 }
 
-
-- (void) calculateEmptyWith3ForAliveSet:(NSMutableSet*)aliveSet andEmptyWith3Set:(NSMutableSet*)emptySet
-{
-    for (Cell* cell in aliveSet)
-    {
-        int initialRow = cell.coordinate.row - 1;
-        int initialCol = cell.coordinate.column - 1;
-        int endRow = cell.coordinate.row + 1;
-        int endCol = cell.coordinate.column + 1;
-        
-        for (int i=initialRow; i<=endRow; i++)
-        {
-            if ([self rowValid:i])
-            {
-                for (int j=initialCol; j<=endCol; j++)
-                {
-                    if ([self colValid:j])
-                    {
-                        Matrix2DCoordenate* coordinate = [[Matrix2DCoordenate alloc] initWithRow:i andColumn:j];
-                        Cell* auxCell = [[Cell alloc] initWithCoordinate:coordinate andOrganismID:-1];
-                        
-                        if(([aliveSet member:auxCell]==nil) && ([emptySet member:coordinate] == nil))
-                        {                            
-                            int n = [self numberOfNeighbours:coordinate inSet:aliveSet];
-                            
-                            if (n == 3)
-                            {
-                                [emptySet addObject:coordinate];
-                            }                                                        
-                        }
-                        
-                        [auxCell release];
-                        [coordinate release];
-                    }
-                }
-            }
-        }
-    }    
-}
 
 
 #pragma mark - Memory Management

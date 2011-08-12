@@ -542,7 +542,7 @@
     [eco setValue:nextGenEmptyWith3Alive forKey:@"nextGenEmptyWith3Alive"];
     
     
-    [eco findEmptyPostionsWithThreeAliveForNextGeneration];
+    [eco findEmptyPostionsWith3AliveForSet:nextGenAliveCells andEmptyWith3Set:nextGenEmptyWith3Alive];
     
     for(Matrix2DCoordenate* c in nextGenEmptyWith3Alive)
     {
