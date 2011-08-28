@@ -150,7 +150,6 @@
     /* Configure Long press gesture for the scroll view, and it's zooming variables.               */
 	/***********************************************************************************************/   
     // Layout the view
-    [[UIApplication sharedApplication] setStatusBarHidden:YES];
     [self setWantsFullScreenLayout:YES];
     
     // Add gesture recogniser

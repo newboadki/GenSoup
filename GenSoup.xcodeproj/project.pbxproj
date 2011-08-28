@@ -165,6 +165,24 @@
 			path = OCMock;
 			sourceTree = "<group>";
 		};
+		E6A67A4713F5D34700D0D246 /* Ecosystem */ = {
+			isa = PBXGroup;
+			children = (
+				E6FC59C113B76A3E00E7E0F8 /* CellView.h */,
+				E6FC59C213B76A3E00E7E0F8 /* CellView.m */,
+				E6FC59C513B76D0700E7E0F8 /* EcosystemView.h */,
+				E6FC59C613B76D0700E7E0F8 /* EcosystemView.m */,
+			);
+			name = Ecosystem;
+			sourceTree = "<group>";
+		};
+		E6A67A6013F67AFD00D0D246 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Components;
+			sourceTree = "<group>";
+		};
 		E6D0C9AE13894ACB00B7F466 = {
 			isa = PBXGroup;
 			children = (
@@ -198,6 +216,7 @@
 		E6D0C9C313894ACB00B7F466 /* GenSoup */ = {
 			isa = PBXGroup;
 			children = (
+				E6A67A6013F67AFD00D0D246 /* Components */,
 				E6485EA213BBB77C00CA8CED /* Models */,
 				E6485E9F13BBB51700CA8CED /* Protocols */,
 				E6FC59C013B76A0700E7E0F8 /* Views */,
@@ -266,10 +285,7 @@
 		E6FC59C013B76A0700E7E0F8 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				E6FC59C113B76A3E00E7E0F8 /* CellView.h */,
-				E6FC59C213B76A3E00E7E0F8 /* CellView.m */,
-				E6FC59C513B76D0700E7E0F8 /* EcosystemView.h */,
-				E6FC59C613B76D0700E7E0F8 /* EcosystemView.m */,
+				E6A67A4713F5D34700D0D246 /* Ecosystem */,
 			);
 			name = Views;
 			sourceTree = "<group>";
