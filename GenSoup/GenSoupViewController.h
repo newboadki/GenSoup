@@ -23,5 +23,7 @@
 @property (retain, nonatomic) NSMutableSet* initialPopulation;
 
 - (void) handleNewGeneration;
+- (IBAction) loadButtonPressed:(id)sender;
+- (IBAction) menuButtonPressed:(id)sender;
 
 @end

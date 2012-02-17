@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		00A681A814ED7D29005B32E1 /* GenSoupViewControllerSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 00A681A714ED7D29005B32E1 /* GenSoupViewControllerSpec.m */; };
-		E69137DF13BF29C0006233DC /* GenSoupViewControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = E69137DE13BF29C0006233DC /* GenSoupViewControllerTests.m */; };
 		E69137E913BF2CC6006233DC /* libOCMock.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E69137E213BF2CC6006233DC /* libOCMock.a */; };
 		E69137FD13BF4D12006233DC /* EcosystemViewTests.m in Sources */ = {isa = PBXBuildFile; fileRef = E69137FC13BF4D12006233DC /* EcosystemViewTests.m */; };
 		E691380013BFBDF6006233DC /* CellViewTests.m in Sources */ = {isa = PBXBuildFile; fileRef = E69137FF13BFBDF5006233DC /* CellViewTests.m */; };
@@ -122,8 +121,6 @@
 /* Begin PBXFileReference section */
 		00A681A714ED7D29005B32E1 /* GenSoupViewControllerSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GenSoupViewControllerSpec.m; sourceTree = "<group>"; };
 		E6485EA113BBB53500CA8CED /* CellViewDelegateProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CellViewDelegateProtocol.h; sourceTree = "<group>"; };
-		E69137DD13BF29C0006233DC /* GenSoupViewControllerTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GenSoupViewControllerTests.h; sourceTree = "<group>"; };
-		E69137DE13BF29C0006233DC /* GenSoupViewControllerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GenSoupViewControllerTests.m; sourceTree = "<group>"; };
 		E69137E213BF2CC6006233DC /* libOCMock.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libOCMock.a; sourceTree = "<group>"; };
 		E69137E313BF2CC6006233DC /* NSNotificationCenter+OCMAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSNotificationCenter+OCMAdditions.h"; sourceTree = "<group>"; };
 		E69137E413BF2CC6006233DC /* OCMArg.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCMArg.h; sourceTree = "<group>"; };
@@ -627,8 +624,6 @@
 				E6D0C9E413894ACB00B7F466 /* Supporting Files */,
 				E6FE278413A3E0B00053ADA6 /* EcosystemTests.h */,
 				E6FE278513A3E0B00053ADA6 /* EcosystemTests.m */,
-				E69137DD13BF29C0006233DC /* GenSoupViewControllerTests.h */,
-				E69137DE13BF29C0006233DC /* GenSoupViewControllerTests.m */,
 				E69137FB13BF4D12006233DC /* EcosystemViewTests.h */,
 				E69137FC13BF4D12006233DC /* EcosystemViewTests.m */,
 				E69137FE13BFBDF5006233DC /* CellViewTests.h */,
@@ -798,7 +793,6 @@
 				E6FE278613A3E0B00053ADA6 /* EcosystemTests.m in Sources */,
 				E6FC59C413B76A3E00E7E0F8 /* CellView.m in Sources */,
 				E6FC59C813B76D0700E7E0F8 /* EcosystemView.m in Sources */,
-				E69137DF13BF29C0006233DC /* GenSoupViewControllerTests.m in Sources */,
 				E69137FD13BF4D12006233DC /* EcosystemViewTests.m in Sources */,
 				E691380013BFBDF6006233DC /* CellViewTests.m in Sources */,
 				E6D7927E13C64761008986FF /* MethodSwizzleHelper.m in Sources */,

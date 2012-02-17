@@ -15,6 +15,7 @@
 - (void) produceNextGeneration;
 - (void) startLife;
 - (void) configureScrollView;
+- (void) setUpToolBarItems;
 @end
 
 
@@ -34,14 +35,13 @@
     /* Implement viewDidLoad to do additional setup after loading the view, typically from a nib.  */
 	/***********************************************************************************************/   
     [super viewDidLoad];
-    
-    // Set the tap delegate for this controller's view
-    [ecosystemView setTapDelegate:self];        
-    
+        
     // Set initial population to empty set
     NSMutableSet* set = [[NSMutableSet alloc] init];
     [self setInitialPopulation:set];
     [set release];    
+    
+    [self setUpToolBarItems];
 }
 
 
@@ -54,8 +54,11 @@
     
     // Compose the view. This method needs to be called before anything else on the ecosystemView. As many methods relay on that view having subviews
     [ecosystemView setUpCellViewsWith:NUMBER_OF_ROWS columns:NUMBER_OF_COLUMS cellViewWidth:10 cellViewHeight:10.15];
-
+    
+    // Set the tap delegate for this controller's view
+    [self.ecosystemView setTapDelegate:self];  // TODO, this methods needs to be called after setUpCellViewWith:columns:cellViewWidth:cellViewHeight: Make these two methods one. and make setUpCellViewWith:columns:cellViewWidth:cellViewHeight receive a parameter for the delegate.
 }
+
 
 - (void)viewDidUnload
 {
@@ -89,8 +92,6 @@
     
     [self.ecosystem setDelegate:self];
     [self.ecosystem produceNextGeneration];
-    //[self produceNextGeneration];
-    //[NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(produceNextGeneration) userInfo:nil repeats:YES];
 }
 
 
@@ -99,7 +100,7 @@
     /***********************************************************************************************/
     /* Update the model and the view, concordantly.                                                */
 	/***********************************************************************************************/
-    //[NSThread detachNewThreadSelector:@selector(produceNextGeneration) toTarget:self.ecosystem withObject:nil];
+
 }
 
 
@@ -147,6 +148,30 @@
 
 
 
+#pragma mark - Actions for buttons
+
+- (IBAction) loadButtonPressed:(id)sender
+{
+
+}
+
+
+- (IBAction) menuButtonPressed:(id)sender
+{
+    if([[self navigationController] isToolbarHidden])
+    {
+        [[[[self navigationController] navigationItem] rightBarButtonItem] setTitle:@"Hide"];
+        [[self navigationController] setToolbarHidden:NO animated:NO];
+    }
+    else
+    {
+        [[[[self navigationController] navigationItem] rightBarButtonItem] setTitle:@"Menu"];
+        [[self navigationController] setToolbarHidden:YES animated:NO];
+    }
+}
+
+
+
 #pragma mark - Helper Methods
 
 - (void) configureScrollView
@@ -155,17 +180,19 @@
     /* Set layout of this controllers view.                                                        */
     /* Configure Long press gesture for the scroll view, and it's zooming variables.               */
 	/***********************************************************************************************/       
-    // Add gesture recogniser
-    UIScrollView* scrollView = (UIScrollView*)self.view;
-    UILongPressGestureRecognizer* gr = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(startLife)];
-    [gr setMinimumPressDuration:2];
-    [scrollView addGestureRecognizer:gr];
-    [gr release];
-    
     // Configure Zoom
+    UIScrollView* scrollView = (UIScrollView*)self.view;
     [scrollView setMinimumZoomScale:1.0];
     [scrollView setMaximumZoomScale:4.0];
     [scrollView setZoomScale:1.0];
+}
+
+
+- (void) setUpToolBarItems
+{
+    UIBarButtonItem* playButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(startLife)];
+    self.toolbarItems = [NSArray arrayWithObject:playButton];
+    [playButton release];
 }
 
 

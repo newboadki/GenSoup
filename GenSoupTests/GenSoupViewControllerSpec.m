@@ -18,14 +18,7 @@ describe(@"viewDidLoad", ^{
     afterEach(^{
         [controller release];
     });    
-    
-    it(@"should set the ecosystemView's tapDelegate to itself", ^{
-        id ecosystemViewMock = [KWMock nullMockForClass:[EcosystemView class]];
-        [controller setEcosystemView:ecosystemViewMock];
-        [[controller.ecosystemView should] receive:@selector(setTapDelegate:) withArguments:controller];
-        [controller viewDidLoad];
-    });
-    
+        
     it(@"should the initial population should not be nil", ^{
         [controller viewDidLoad];
         [controller.initialPopulation shouldNotBeNil];
@@ -57,11 +50,16 @@ describe(@"viewWillAppear", ^{
         id ecosystemViewMock = [KWMock nullMockForClass:[EcosystemView class]];
         [controller setEcosystemView:ecosystemViewMock];
 
-        NSLog(@"-->>>>> %@", controller.ecosystemView);
         //[[controller.ecosystemView should] receive:@selector(setUpCellViewsWith:columns:cellViewWidth:cellViewHeight:) withArguments:theValue(41), theValue(32), theValue(10), theValue(10.15)]; Not working. Don't know why
         [controller viewWillAppear:YES];
     });
-        
+    
+    it(@"should set the ecosystemView's tapDelegate to itself", ^{
+        id ecosystemViewMock = [KWMock nullMockForClass:[EcosystemView class]];
+        [controller stub:@selector(ecosystemView) andReturn:ecosystemViewMock];
+        [[controller.ecosystemView should] receive:@selector(setTapDelegate:) withArguments:controller];
+        [controller viewWillAppear:YES];
+    });
 });
 
 
@@ -174,12 +172,7 @@ describe(@"configureScrollView:", ^{
     afterEach(^{
         [controller release];
     });
-    
-    it(@"should add a gesture recognizer to the scrollView", ^{
-        [[controller.view should] receive:@selector(addGestureRecognizer:)];
-        [controller configureScrollView];
-    });
-    
+        
     it(@"should set the scrollView's minimumZoomScale to 1.0", ^{
         [[controller.view should] receive:@selector(setMinimumZoomScale:) withArguments:theValue(1.0)];
         [controller configureScrollView];
@@ -194,7 +187,63 @@ describe(@"configureScrollView:", ^{
         [[controller.view should] receive:@selector(setZoomScale:) withArguments:theValue(1.0)];
         [controller configureScrollView];
     });
+});
+
+describe(@"menuButtonPressed:", ^{
+    
+    __block GenSoupViewController* controller;
+    
+    beforeEach(^{
+        controller = [[GenSoupViewController alloc] init];
+        id navigationControllerMock = [KWMock nullMockForClass:[UINavigationController class]];
+        id navigationItemMock = [KWMock nullMockForClass:[UINavigationItem class]];
+        id rightBarButtonMock = [KWMock nullMockForClass:[UIBarButtonItem class]];
+        
+        [controller stub:@selector(navigationController) andReturn:navigationControllerMock];
+        [navigationControllerMock stub:@selector(navigationItem) andReturn:navigationItemMock];
+        [navigationItemMock stub:@selector(rightBarButtonItem) andReturn:rightBarButtonMock];
+    });
+    
+    afterEach(^{
+        [controller release];
+    });
+    
+    context(@"the toolbar is hidden", ^{
+        
+        beforeEach(^{
+            [[controller navigationController] stub:@selector(isToolbarHidden) andReturn:theValue(YES)];
+        });
+        
+        it(@"should set the text of the button to Hide", ^{
+            [[controller.navigationController.navigationItem.rightBarButtonItem should] receive:@selector(setTitle:) withArguments:@"Hide"];
+            [controller menuButtonPressed:nil];
+        });
+        it(@"should show the toolBar", ^{
+            [[controller.navigationController should] receive:@selector(setToolbarHidden:animated:) withArguments:theValue(NO), theValue(NO)];
+            [controller menuButtonPressed:nil];
+        });
+    });
+
+    
+    context(@"the toolbar is vissible", ^{
+        
+        beforeEach(^{
+            [[controller navigationController] stub:@selector(isToolbarHidden) andReturn:theValue(NO)];
+        });
+
+        
+        it(@"should set the text of the button to Menu", ^{
+            [[controller.navigationController.navigationItem.rightBarButtonItem should] receive:@selector(setTitle:) withArguments:@"Menu"];
+            [controller menuButtonPressed:nil];
+
+        });
+        it(@"should hide the toolBar", ^{
+            [[controller.navigationController should] receive:@selector(setToolbarHidden:animated:) withArguments:theValue(YES), theValue(NO)];
+            [controller menuButtonPressed:nil];        
+        });
+    });
 
 });
+
 
 SPEC_END
