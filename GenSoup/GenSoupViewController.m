@@ -8,7 +8,7 @@
 
 #import "GenSoupViewController.h"
 
-#define NUMBER_OF_ROWS   48
+#define NUMBER_OF_ROWS   41
 #define NUMBER_OF_COLUMS 32
 
 @interface GenSoupViewController()
@@ -35,12 +35,6 @@
 	/***********************************************************************************************/   
     [super viewDidLoad];
     
-    // Configure this controller's view layout
-    [self configureScrollView];
-    
-    // Compose the view. This method needs to be called before anything else on the ecosystemView. As many methods relay on that view having subviews
-    [ecosystemView setUpCellViewsWith:NUMBER_OF_ROWS columns:NUMBER_OF_COLUMS cellViewWidth:10.0 cellViewHeight:10.0];
-    
     // Set the tap delegate for this controller's view
     [ecosystemView setTapDelegate:self];        
     
@@ -50,6 +44,18 @@
     [set release];    
 }
 
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    // Configure this controller's view layout
+    [self configureScrollView];
+    
+    // Compose the view. This method needs to be called before anything else on the ecosystemView. As many methods relay on that view having subviews
+    [ecosystemView setUpCellViewsWith:NUMBER_OF_ROWS columns:NUMBER_OF_COLUMS cellViewWidth:10 cellViewHeight:10.15];
+
+}
 
 - (void)viewDidUnload
 {
@@ -148,10 +154,7 @@
     /***********************************************************************************************/
     /* Set layout of this controllers view.                                                        */
     /* Configure Long press gesture for the scroll view, and it's zooming variables.               */
-	/***********************************************************************************************/   
-    // Layout the view
-    [self setWantsFullScreenLayout:YES];
-    
+	/***********************************************************************************************/       
     // Add gesture recogniser
     UIScrollView* scrollView = (UIScrollView*)self.view;
     UILongPressGestureRecognizer* gr = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(startLife)];
