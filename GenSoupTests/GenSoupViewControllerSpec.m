@@ -245,13 +245,6 @@ describe(@"menuButtonPressed:", ^{
 
 });
 
-/*
- 
- - (void) handleResetGeneration
- {
- [self.ecosystemView refreshView:self.ecosystem];
- }
-*/
 
 describe(@"handleResetGeneration:", ^{
     
@@ -275,6 +268,36 @@ describe(@"handleResetGeneration:", ^{
     });
     
 });
+
+describe(@"resetEcosystem", ^{
+    
+    __block GenSoupViewController* controller;
+    
+    beforeEach(^{
+        controller = [[GenSoupViewController alloc] init];
+        id ecosystemMock = [KWMock nullMockForClass:[Ecosystem class]];
+        id initialPopulationMock = [KWMock nullMockForClass:[NSMutableSet class]];
+        controller.initialPopulation = initialPopulationMock;
+        controller.ecosystem = ecosystemMock;
+    });
+    
+    afterEach(^{
+        [controller release];
+    });
+
+    
+    it(@"should empty the initial population", ^{
+        [[controller.initialPopulation should] receive:@selector(removeAllObjects)];
+        [controller resetEcosystem];
+    });
+
+    it(@"should empty the initial population", ^{
+        [[controller.ecosystem should] receive:@selector(scheduleReset)];
+        [controller resetEcosystem];
+    });
+
+});
+
 
 
 SPEC_END
