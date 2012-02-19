@@ -41,7 +41,7 @@
     [self setInitialPopulation:set];
     [set release];    
     
-    [self setUpToolBarItems];
+    [self setUpToolBarItems];    
 }
 
 
@@ -107,9 +107,14 @@
 - (void) handleNewGeneration
 {
     [self.ecosystemView refreshView:self.ecosystem];    
-    [self.ecosystem produceNextGeneration];
+    [self.ecosystem produceNextGeneration];        
 }
 
+
+- (void) handleResetGeneration
+{
+    [self.ecosystemView refreshView:self.ecosystem];
+}
 
 
 #pragma mark - UIScrollViewDelegate Protocol Methods 
@@ -121,6 +126,7 @@
 	/***********************************************************************************************/   
     return self.ecosystemView;
 }
+
 
 
 #pragma mark - CellViewDelegateProtocol
@@ -171,6 +177,15 @@
 }
 
 
+- (void) resetEcosystem
+{
+    /***********************************************************************************************/
+    /* Empty all the data structures, clean the view up.                                           */
+	/***********************************************************************************************/
+    [ecosystem scheduleReset];
+}
+
+
 
 #pragma mark - Helper Methods
 
@@ -191,7 +206,9 @@
 - (void) setUpToolBarItems
 {
     UIBarButtonItem* playButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(startLife)];
-    self.toolbarItems = [NSArray arrayWithObject:playButton];
+    UIBarButtonItem* resetButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemBookmarks target:self action:@selector(resetEcosystem)];
+
+    self.toolbarItems = [NSArray arrayWithObjects:playButton, resetButton, nil];
     [playButton release];
 }
 

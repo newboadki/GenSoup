@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		00A681A814ED7D29005B32E1 /* GenSoupViewControllerSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 00A681A714ED7D29005B32E1 /* GenSoupViewControllerSpec.m */; };
+		00C1F82D14EEC8C9009DA3E8 /* EcosystemSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 00C1F82C14EEC8C9009DA3E8 /* EcosystemSpec.m */; };
 		E69137E913BF2CC6006233DC /* libOCMock.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E69137E213BF2CC6006233DC /* libOCMock.a */; };
 		E69137FD13BF4D12006233DC /* EcosystemViewTests.m in Sources */ = {isa = PBXBuildFile; fileRef = E69137FC13BF4D12006233DC /* EcosystemViewTests.m */; };
 		E691380013BFBDF6006233DC /* CellViewTests.m in Sources */ = {isa = PBXBuildFile; fileRef = E69137FF13BFBDF5006233DC /* CellViewTests.m */; };
@@ -120,6 +121,7 @@
 
 /* Begin PBXFileReference section */
 		00A681A714ED7D29005B32E1 /* GenSoupViewControllerSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GenSoupViewControllerSpec.m; sourceTree = "<group>"; };
+		00C1F82C14EEC8C9009DA3E8 /* EcosystemSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EcosystemSpec.m; sourceTree = "<group>"; };
 		E6485EA113BBB53500CA8CED /* CellViewDelegateProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CellViewDelegateProtocol.h; sourceTree = "<group>"; };
 		E69137E213BF2CC6006233DC /* libOCMock.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libOCMock.a; sourceTree = "<group>"; };
 		E69137E313BF2CC6006233DC /* NSNotificationCenter+OCMAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSNotificationCenter+OCMAdditions.h"; sourceTree = "<group>"; };
@@ -617,20 +619,21 @@
 		E6D0C9E313894ACB00B7F466 /* GenSoupTests */ = {
 			isa = PBXGroup;
 			children = (
-				E6B42E42144F81870070DE36 /* Kiwi */,
-				E69137E113BF2CC6006233DC /* OCMock */,
-				E6D0C9EA13894ACB00B7F466 /* GenSoupTests.h */,
-				E6D0C9EC13894ACB00B7F466 /* GenSoupTests.m */,
-				E6D0C9E413894ACB00B7F466 /* Supporting Files */,
+				E69137FE13BFBDF5006233DC /* CellViewTests.h */,
+				E69137FF13BFBDF5006233DC /* CellViewTests.m */,
 				E6FE278413A3E0B00053ADA6 /* EcosystemTests.h */,
 				E6FE278513A3E0B00053ADA6 /* EcosystemTests.m */,
 				E69137FB13BF4D12006233DC /* EcosystemViewTests.h */,
 				E69137FC13BF4D12006233DC /* EcosystemViewTests.m */,
-				E69137FE13BFBDF5006233DC /* CellViewTests.h */,
-				E69137FF13BFBDF5006233DC /* CellViewTests.m */,
+				E6D0C9EA13894ACB00B7F466 /* GenSoupTests.h */,
+				E6D0C9EC13894ACB00B7F466 /* GenSoupTests.m */,
+				00A681A714ED7D29005B32E1 /* GenSoupViewControllerSpec.m */,
+				E6B42E42144F81870070DE36 /* Kiwi */,
 				E6D7927C13C64761008986FF /* MethodSwizzleHelper.h */,
 				E6D7927D13C64761008986FF /* MethodSwizzleHelper.m */,
-				00A681A714ED7D29005B32E1 /* GenSoupViewControllerSpec.m */,
+				E69137E113BF2CC6006233DC /* OCMock */,
+				E6D0C9E413894ACB00B7F466 /* Supporting Files */,
+				00C1F82C14EEC8C9009DA3E8 /* EcosystemSpec.m */,
 			);
 			path = GenSoupTests;
 			sourceTree = "<group>";
@@ -864,6 +867,7 @@
 				E6B42F1A144F81870070DE36 /* NSObject+KiwiVerifierAdditions.m in Sources */,
 				E6B42F1B144F81870070DE36 /* NSValue+KiwiAdditions.m in Sources */,
 				00A681A814ED7D29005B32E1 /* GenSoupViewControllerSpec.m in Sources */,
+				00C1F82D14EEC8C9009DA3E8 /* EcosystemSpec.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

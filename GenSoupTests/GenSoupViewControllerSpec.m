@@ -245,5 +245,36 @@ describe(@"menuButtonPressed:", ^{
 
 });
 
+/*
+ 
+ - (void) handleResetGeneration
+ {
+ [self.ecosystemView refreshView:self.ecosystem];
+ }
+*/
+
+describe(@"handleResetGeneration:", ^{
+    
+    __block GenSoupViewController* controller;
+    
+    beforeEach(^{
+        controller = [[GenSoupViewController alloc] init];
+        id ecosystemMock = [KWMock nullMockForClass:[Ecosystem class]];
+        id ecosystemViewMock = [KWMock nullMockForClass:[EcosystemView class]];
+        controller.ecosystem = ecosystemMock;
+        controller.ecosystemView = ecosystemViewMock;        
+    });
+    
+    afterEach(^{
+        [controller release];
+    });
+    
+    it(@"should refresh the view with the current ecosystem", ^{
+        [[controller.ecosystemView should] receive:@selector(refreshView:) withArguments:controller.ecosystem];
+        [controller handleResetGeneration];
+    });
+    
+});
+
 
 SPEC_END

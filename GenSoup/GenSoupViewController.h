@@ -15,7 +15,7 @@
 #import "CellViewDelegateProtocol.h"
 
 @interface GenSoupViewController : UIViewController <UIScrollViewDelegate, CellViewDelegateProtocol>
-{        
+{
 }
 
 @property (retain, nonatomic) Ecosystem* ecosystem;
@@ -23,7 +23,10 @@
 @property (retain, nonatomic) NSMutableSet* initialPopulation;
 
 - (void) handleNewGeneration;
+- (void) handleResetGeneration;
 - (IBAction) loadButtonPressed:(id)sender;
 - (IBAction) menuButtonPressed:(id)sender;
+- (void) resetEcosystem;
+
 
 @end

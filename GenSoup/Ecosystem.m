@@ -32,7 +32,7 @@
 @synthesize aliveCells;
 @synthesize delegate;
 @synthesize busyCalculatingNextGeneration;
-
+@synthesize initialPopulation;
 
 
 #pragma mark - Init Methods
@@ -62,6 +62,8 @@
         
         operationQueue = [[NSOperationQueue alloc] init];
         [operationQueue setMaxConcurrentOperationCount:1];
+        
+        resetScheduled = NO;
     }
     
     return self;
@@ -91,10 +93,19 @@
         [self eliminateEmptyCoordinatesForNextGeneration];
         [self findEmptyPostionsWith3AliveForSet:self->nextGenAliveCells andEmptyWith3Set:self->nextGenEmptyWith3Alive];
         [self swapCurrentAndNextGenerationSets];    
-                
-        [delegate performSelectorOnMainThread:@selector(handleNewGeneration) withObject:nil waitUntilDone:YES];    
+        
+        if (resetScheduled)
+        {
+            [self reset];
+            resetScheduled = NO;
+            [delegate performSelectorOnMainThread:@selector(handleResetGeneration) withObject:nil waitUntilDone:YES];
+        }
+        else
+        {
+            [delegate performSelectorOnMainThread:@selector(handleNewGeneration) withObject:nil waitUntilDone:YES];
+        }
     }];
-
+    
     [operationQueue addOperation:op];        
 }
 
@@ -332,6 +343,25 @@
     }
     
     NSLog(@"%@", rowString);
+}
+
+
+
+#pragma mark - utility methods
+
+- (void) scheduleReset
+{
+    resetScheduled = YES;
+}
+
+
+- (void) reset
+{
+    [[self initialPopulation] removeAllObjects];
+    [emptyWith3Alive removeAllObjects];
+    [aliveCells removeAllObjects];
+    [nextGenAliveCells removeAllObjects];
+    [nextGenEmptyWith3Alive removeAllObjects];
 }
 
 

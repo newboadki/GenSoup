@@ -21,14 +21,18 @@
     int rows;
     int columns;
     NSOperationQueue* operationQueue;
+    BOOL resetScheduled;
 }
 
 @property (retain, nonatomic, readonly) NSMutableSet* aliveCells;
 @property (assign, nonatomic) GenSoupViewController* delegate;
+@property (retain, nonatomic) NSMutableSet* initialPopulation;
 
 
 - (id) initWithRows:(int)theRows andColumns:(int)theColumns andInitialPopulation:(NSSet*)population;
 - (void) printToConsole;
 - (void) produceNextGeneration;
+- (void) reset;
+- (void) scheduleReset;
 
 @end
