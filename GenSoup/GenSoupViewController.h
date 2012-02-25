@@ -24,9 +24,10 @@
 
 - (void) handleNewGeneration;
 - (void) handleResetGeneration;
+- (void) resetEcosystem;
+
 - (IBAction) loadButtonPressed:(id)sender;
 - (IBAction) menuButtonPressed:(id)sender;
-- (void) resetEcosystem;
 
 
 @end

@@ -347,7 +347,7 @@
 
 
 
-#pragma mark - utility methods
+#pragma mark - Reset
 
 - (void) scheduleReset
 {
@@ -363,6 +363,12 @@
     [nextGenAliveCells removeAllObjects];
     [nextGenEmptyWith3Alive removeAllObjects];
 }
+
+
+
+#pragma mark - Save
+
+
 
 
 
