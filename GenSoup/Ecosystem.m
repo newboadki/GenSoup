@@ -80,6 +80,27 @@
 
 
 
+#pragma mark - NSCoding Protocol
+
+- (id)initWithCoder:(NSCoder *)decoder
+{
+    int numberOfRows = [decoder decodeIntForKey:ROWS_ARCHIVE_KEY];
+    int numberOfColumns = [decoder decodeIntForKey:COLUMNS_ARCHIVE_KEY];
+    NSMutableSet* theInitialPopulation = [[decoder decodeObjectForKey:INITIAL_POPULATION_ARCHIVE_KEY] retain];
+
+    return [self initWithRows:numberOfRows andColumns:numberOfColumns andInitialPopulation:theInitialPopulation];
+}
+
+
+- (void)encodeWithCoder:(NSCoder *)encoder
+{
+    [encoder encodeInt:rows forKey:ROWS_ARCHIVE_KEY];
+    [encoder encodeInt:columns forKey:COLUMNS_ARCHIVE_KEY];
+    [encoder encodeObject:initialPopulation forKey:INITIAL_POPULATION_ARCHIVE_KEY];
+}
+
+
+
 #pragma mark - Algorithmic Methods
 
 - (void) produceNextGeneration
@@ -367,7 +388,6 @@
 
 
 #pragma mark - Save
-
 
 
 

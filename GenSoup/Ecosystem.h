@@ -9,9 +9,14 @@
 #import <Foundation/Foundation.h>
 #import "Cell.h"
 
+#define ROWS_ARCHIVE_KEY @"rowsArchiveKey"
+#define COLUMNS_ARCHIVE_KEY @"columnsArchiveKey"
+#define INITIAL_POPULATION_ARCHIVE_KEY @"initialPopulationArchiveKey"
+#define ALIVE_CELLS_ARCHIVE_KEY @"aliveCellsArchiveKey"
+
 @class GenSoupViewController;
 
-@interface Ecosystem : NSObject
+@interface Ecosystem : NSObject <NSCoding>
 {
     NSMutableSet* initialPopulation;
     NSMutableSet* aliveCells;
