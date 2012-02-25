@@ -8,8 +8,10 @@
 
 #import <Foundation/Foundation.h>
 
+#define ROW_ARCHIVE_KEY @"rowArchiveKey"
+#define COLUMN_ARCHIVE_KEY @"columnArchiveKey"
 
-@interface Matrix2DCoordenate : NSObject <NSCopying>
+@interface Matrix2DCoordenate : NSObject <NSCopying, NSCoding>
 {
     int row;
     int column;

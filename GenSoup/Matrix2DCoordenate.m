@@ -66,4 +66,27 @@
     return [h intValue];
 }
 
+
+
+#pragma mark - NSCoding Protocol
+
+- (id)initWithCoder:(NSCoder *)decoder
+{
+    if ([super init])
+    {
+        row = [decoder decodeIntForKey:ROW_ARCHIVE_KEY];
+        column = [decoder decodeIntForKey:COLUMN_ARCHIVE_KEY];
+    }
+    
+    return self;
+}
+
+
+- (void)encodeWithCoder:(NSCoder *)encoder
+{
+    [encoder encodeInt:row forKey:ROW_ARCHIVE_KEY];
+    [encoder encodeInt:column forKey:COLUMN_ARCHIVE_KEY];
+}
+
+
 @end
