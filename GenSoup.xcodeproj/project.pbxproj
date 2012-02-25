@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		0099F66314F9363A0097902E /* Matrix2DCoordinateSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 0099F66214F9363A0097902E /* Matrix2DCoordinateSpec.m */; };
+		0099F66614F93E120097902E /* CellSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 0099F66514F93E120097902E /* CellSpec.m */; };
 		00A681A814ED7D29005B32E1 /* GenSoupViewControllerSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 00A681A714ED7D29005B32E1 /* GenSoupViewControllerSpec.m */; };
 		00C1F82D14EEC8C9009DA3E8 /* EcosystemSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 00C1F82C14EEC8C9009DA3E8 /* EcosystemSpec.m */; };
 		E69137E913BF2CC6006233DC /* libOCMock.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E69137E213BF2CC6006233DC /* libOCMock.a */; };
@@ -122,6 +123,7 @@
 
 /* Begin PBXFileReference section */
 		0099F66214F9363A0097902E /* Matrix2DCoordinateSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Matrix2DCoordinateSpec.m; sourceTree = "<group>"; };
+		0099F66514F93E120097902E /* CellSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CellSpec.m; sourceTree = "<group>"; };
 		00A681A714ED7D29005B32E1 /* GenSoupViewControllerSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GenSoupViewControllerSpec.m; sourceTree = "<group>"; };
 		00C1F82C14EEC8C9009DA3E8 /* EcosystemSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EcosystemSpec.m; sourceTree = "<group>"; };
 		E6485EA113BBB53500CA8CED /* CellViewDelegateProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CellViewDelegateProtocol.h; sourceTree = "<group>"; };
@@ -637,6 +639,7 @@
 				E6D0C9E413894ACB00B7F466 /* Supporting Files */,
 				00C1F82C14EEC8C9009DA3E8 /* EcosystemSpec.m */,
 				0099F66214F9363A0097902E /* Matrix2DCoordinateSpec.m */,
+				0099F66514F93E120097902E /* CellSpec.m */,
 			);
 			path = GenSoupTests;
 			sourceTree = "<group>";
@@ -872,6 +875,7 @@
 				00A681A814ED7D29005B32E1 /* GenSoupViewControllerSpec.m in Sources */,
 				00C1F82D14EEC8C9009DA3E8 /* EcosystemSpec.m in Sources */,
 				0099F66314F9363A0097902E /* Matrix2DCoordinateSpec.m in Sources */,
+				0099F66614F93E120097902E /* CellSpec.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

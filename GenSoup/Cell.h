@@ -9,7 +9,10 @@
 #import <Foundation/Foundation.h>
 #import "Matrix2DCoordenate.h"
 
-@interface Cell : NSObject <NSCopying>
+#define COORDINATE_ARCHIVE_KEY @"coodinateArchiveKey"
+#define ORGANISM_ID_ARCHIVE_KEY @"organismIdArchiveKey"
+
+@interface Cell : NSObject <NSCopying, NSCoding>
 {
     Matrix2DCoordenate* coordinate;
     int organismID;

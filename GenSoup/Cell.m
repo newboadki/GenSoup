@@ -77,6 +77,31 @@
 }
 
 
+
+#pragma mark - NSCoding Protocol
+
+- (id)initWithCoder:(NSCoder *)decoder
+{
+    if ([super init])
+    {
+        coordinate = [[decoder decodeObjectForKey:COORDINATE_ARCHIVE_KEY] retain];
+        organismID = [decoder decodeIntForKey:ORGANISM_ID_ARCHIVE_KEY];
+    }
+    
+    return self;
+}
+
+
+- (void)encodeWithCoder:(NSCoder *)encoder
+{
+    [encoder encodeObject:coordinate forKey:COORDINATE_ARCHIVE_KEY];
+    [encoder encodeInt:organismID forKey:ORGANISM_ID_ARCHIVE_KEY];
+}
+
+
+
+#pragma mark - Memory Management
+
 - (void) dealloc
 {
     /***********************************************************************************************/
