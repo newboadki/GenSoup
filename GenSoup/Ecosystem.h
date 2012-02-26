@@ -18,6 +18,7 @@
 
 @interface Ecosystem : NSObject <NSCoding>
 {
+    NSString* storageName; // it will be a lower case underscore separated string.
     NSMutableSet* initialPopulation;
     NSMutableSet* aliveCells;
     NSMutableSet* emptyWith3Alive;
@@ -32,7 +33,7 @@
 @property (retain, nonatomic, readonly) NSMutableSet* aliveCells;
 @property (assign, nonatomic) GenSoupViewController* delegate;
 @property (retain, nonatomic) NSMutableSet* initialPopulation;
-
+@property (retain, nonatomic) NSString* storageName;
 
 - (id) initWithRows:(int)theRows andColumns:(int)theColumns andInitialPopulation:(NSSet*)population;
 - (void) printToConsole;

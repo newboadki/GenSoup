@@ -33,6 +33,7 @@
 @synthesize delegate;
 @synthesize busyCalculatingNextGeneration;
 @synthesize initialPopulation;
+@synthesize storageName;
 
 
 #pragma mark - Init Methods
@@ -84,6 +85,9 @@
 
 - (id)initWithCoder:(NSCoder *)decoder
 {
+    /***********************************************************************************************/
+    /* When creating an instance from a file we need the rows, columns and the initial population. */
+	/***********************************************************************************************/    
     int numberOfRows = [decoder decodeIntForKey:ROWS_ARCHIVE_KEY];
     int numberOfColumns = [decoder decodeIntForKey:COLUMNS_ARCHIVE_KEY];
     NSMutableSet* theInitialPopulation = [[decoder decodeObjectForKey:INITIAL_POPULATION_ARCHIVE_KEY] retain];
@@ -94,6 +98,9 @@
 
 - (void)encodeWithCoder:(NSCoder *)encoder
 {
+    /***********************************************************************************************/
+    /* When saving an ecosystem to a file we need the rows, columns and the initial population.    */
+	/***********************************************************************************************/    
     [encoder encodeInt:rows forKey:ROWS_ARCHIVE_KEY];
     [encoder encodeInt:columns forKey:COLUMNS_ARCHIVE_KEY];
     [encoder encodeObject:initialPopulation forKey:INITIAL_POPULATION_ARCHIVE_KEY];
@@ -387,11 +394,6 @@
 
 
 
-#pragma mark - Save
-
-
-
-
 #pragma mark - Memory Management
 
 - (void) dealloc
@@ -412,6 +414,7 @@
     self->nextGenEmptyWith3Alive = nil;
     [operationQueue release];
     operationQueue = nil;
+    [self setStorageName:nil];
     
     [super dealloc];
 }
