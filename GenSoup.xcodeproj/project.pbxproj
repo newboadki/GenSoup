@@ -9,6 +9,12 @@
 /* Begin PBXBuildFile section */
 		0099F66314F9363A0097902E /* Matrix2DCoordinateSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 0099F66214F9363A0097902E /* Matrix2DCoordinateSpec.m */; };
 		0099F66614F93E120097902E /* CellSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 0099F66514F93E120097902E /* CellSpec.m */; };
+		0099F67214F9694D0097902E /* SaveEcosystemViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0099F67014F9694D0097902E /* SaveEcosystemViewController.m */; };
+		0099F67314F9694D0097902E /* SaveEcosystemViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0099F67014F9694D0097902E /* SaveEcosystemViewController.m */; };
+		0099F67414F9694D0097902E /* SaveEcosystemViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0099F67114F9694D0097902E /* SaveEcosystemViewController.xib */; };
+		0099F67514F9694D0097902E /* SaveEcosystemViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0099F67114F9694D0097902E /* SaveEcosystemViewController.xib */; };
+		0099F67B14F971930097902E /* EditableRowCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0099F67A14F971930097902E /* EditableRowCell.xib */; };
+		0099F67C14F971930097902E /* EditableRowCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0099F67A14F971930097902E /* EditableRowCell.xib */; };
 		00A681A814ED7D29005B32E1 /* GenSoupViewControllerSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 00A681A714ED7D29005B32E1 /* GenSoupViewControllerSpec.m */; };
 		00C1F82D14EEC8C9009DA3E8 /* EcosystemSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 00C1F82C14EEC8C9009DA3E8 /* EcosystemSpec.m */; };
 		E69137E913BF2CC6006233DC /* libOCMock.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E69137E213BF2CC6006233DC /* libOCMock.a */; };
@@ -124,6 +130,10 @@
 /* Begin PBXFileReference section */
 		0099F66214F9363A0097902E /* Matrix2DCoordinateSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Matrix2DCoordinateSpec.m; sourceTree = "<group>"; };
 		0099F66514F93E120097902E /* CellSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CellSpec.m; sourceTree = "<group>"; };
+		0099F66F14F9694D0097902E /* SaveEcosystemViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SaveEcosystemViewController.h; sourceTree = "<group>"; };
+		0099F67014F9694D0097902E /* SaveEcosystemViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SaveEcosystemViewController.m; sourceTree = "<group>"; };
+		0099F67114F9694D0097902E /* SaveEcosystemViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SaveEcosystemViewController.xib; sourceTree = "<group>"; };
+		0099F67A14F971930097902E /* EditableRowCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EditableRowCell.xib; sourceTree = "<group>"; };
 		00A681A714ED7D29005B32E1 /* GenSoupViewControllerSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GenSoupViewControllerSpec.m; sourceTree = "<group>"; };
 		00C1F82C14EEC8C9009DA3E8 /* EcosystemSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EcosystemSpec.m; sourceTree = "<group>"; };
 		E6485EA113BBB53500CA8CED /* CellViewDelegateProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CellViewDelegateProtocol.h; sourceTree = "<group>"; };
@@ -660,6 +670,10 @@
 				E6D0C9D213894ACB00B7F466 /* GenSoupViewController.h */,
 				E6D0C9D313894ACB00B7F466 /* GenSoupViewController.m */,
 				E6D0C9D513894ACB00B7F466 /* GenSoupViewController.xib */,
+				0099F66F14F9694D0097902E /* SaveEcosystemViewController.h */,
+				0099F67014F9694D0097902E /* SaveEcosystemViewController.m */,
+				0099F67114F9694D0097902E /* SaveEcosystemViewController.xib */,
+				0099F67A14F971930097902E /* EditableRowCell.xib */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -745,6 +759,8 @@
 				E6D0C9C813894ACB00B7F466 /* InfoPlist.strings in Resources */,
 				E6D0C9D113894ACB00B7F466 /* MainWindow.xib in Resources */,
 				E6D0C9D713894ACB00B7F466 /* GenSoupViewController.xib in Resources */,
+				0099F67414F9694D0097902E /* SaveEcosystemViewController.xib in Resources */,
+				0099F67B14F971930097902E /* EditableRowCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -754,6 +770,8 @@
 			files = (
 				E6D0C9E813894ACB00B7F466 /* InfoPlist.strings in Resources */,
 				E6D0C9EB13894ACB00B7F466 /* GenSoupTests.h in Resources */,
+				0099F67514F9694D0097902E /* SaveEcosystemViewController.xib in Resources */,
+				0099F67C14F971930097902E /* EditableRowCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -788,6 +806,7 @@
 				E6D0CA2013894D8200B7F466 /* Ecosystem.m in Sources */,
 				E6FC59C313B76A3E00E7E0F8 /* CellView.m in Sources */,
 				E6FC59C713B76D0700E7E0F8 /* EcosystemView.m in Sources */,
+				0099F67214F9694D0097902E /* SaveEcosystemViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -876,6 +895,7 @@
 				00C1F82D14EEC8C9009DA3E8 /* EcosystemSpec.m in Sources */,
 				0099F66314F9363A0097902E /* Matrix2DCoordinateSpec.m in Sources */,
 				0099F66614F93E120097902E /* CellSpec.m in Sources */,
+				0099F67314F9694D0097902E /* SaveEcosystemViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

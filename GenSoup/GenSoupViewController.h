@@ -13,9 +13,11 @@
 #import "EcosystemView.h"
 #import "Ecosystem.h"
 #import "CellViewDelegateProtocol.h"
+#import "SaveEcosystemViewController.h"
 
-@interface GenSoupViewController : UIViewController <UIScrollViewDelegate, CellViewDelegateProtocol>
+@interface GenSoupViewController : UIViewController <UIScrollViewDelegate, CellViewDelegateProtocol, SaveEcosystemViewControllerDelegateProtocol>
 {
+    BOOL working;
 }
 
 @property (retain, nonatomic) Ecosystem* ecosystem;
@@ -25,9 +27,12 @@
 - (void) handleNewGeneration;
 - (void) handleResetGeneration;
 - (void) resetEcosystem;
+- (void) saveButtonPressed;
+- (void) pauseLife;
+- (void) resumeLife;
+
 
 - (IBAction) loadButtonPressed:(id)sender;
 - (IBAction) menuButtonPressed:(id)sender;
-
 
 @end

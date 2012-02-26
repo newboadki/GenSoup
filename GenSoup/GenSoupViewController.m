@@ -16,6 +16,7 @@
 - (void) startLife;
 - (void) configureScrollView;
 - (void) setUpToolBarItems;
+- (BOOL) archiveEcosystemWithName:(NSString*)name;
 @end
 
 
@@ -41,22 +42,27 @@
     [self setInitialPopulation:set];
     [set release];    
     
-    [self setUpToolBarItems];    
+    [self setUpToolBarItems];  
+    
+    working = NO;
 }
 
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    [super viewWillAppear:animated];
-    
-    // Configure this controller's view layout
-    [self configureScrollView];
-    
-    // Compose the view. This method needs to be called before anything else on the ecosystemView. As many methods relay on that view having subviews
-    [ecosystemView setUpCellViewsWith:NUMBER_OF_ROWS columns:NUMBER_OF_COLUMS cellViewWidth:10 cellViewHeight:10.15];
-    
-    // Set the tap delegate for this controller's view
-    [self.ecosystemView setTapDelegate:self];  // TODO, this methods needs to be called after setUpCellViewWith:columns:cellViewWidth:cellViewHeight: Make these two methods one. and make setUpCellViewWith:columns:cellViewWidth:cellViewHeight receive a parameter for the delegate.
+    if ([initialPopulation count] == 0) 
+    {
+        [super viewWillAppear:animated];
+        
+        // Configure this controller's view layout
+        [self configureScrollView];
+        
+        // Compose the view. This method needs to be called before anything else on the ecosystemView. As many methods relay on that view having subviews
+        [ecosystemView setUpCellViewsWith:NUMBER_OF_ROWS columns:NUMBER_OF_COLUMS cellViewWidth:10 cellViewHeight:10.15];
+        
+        // Set the tap delegate for this controller's view
+        [self.ecosystemView setTapDelegate:self];  // TODO, this methods needs to be called after setUpCellViewWith:columns:cellViewWidth:cellViewHeight: Make these two methods one. and make setUpCellViewWith:columns:cellViewWidth:cellViewHeight receive a parameter for the delegate.        
+    }
 }
 
 
@@ -84,13 +90,33 @@
 - (void) startLife
 {
     /***********************************************************************************************/
-    /* Configure an NSTimer that will create a new generation each 0.3 seconds.                    */
-	/***********************************************************************************************/   
-    Ecosystem* eco = [[Ecosystem alloc] initWithRows:NUMBER_OF_ROWS andColumns:NUMBER_OF_COLUMS andInitialPopulation:initialPopulation];        
-    [self setEcosystem:eco];
-    [eco release];
-    
-    [self.ecosystem setDelegate:self];
+    /* The process is synchronous between the controller and the model. They ping pong each other. */
+    /* The controller starts with this method. The model calculates the next gen and lets the cont */
+    /* know when its ready.                                                                        */
+	/***********************************************************************************************/
+    if (!working)
+    {
+        working = YES;
+        
+        Ecosystem* eco = [[Ecosystem alloc] initWithRows:NUMBER_OF_ROWS andColumns:NUMBER_OF_COLUMS andInitialPopulation:initialPopulation];        
+        [self setEcosystem:eco];
+        [eco release];
+        
+        [self.ecosystem setDelegate:self];
+        [self.ecosystem produceNextGeneration];
+    }
+}
+
+
+- (void) pauseLife
+{
+    working = NO;
+}
+
+
+- (void) resumeLife
+{
+    working = YES;
     [self.ecosystem produceNextGeneration];
 }
 
@@ -106,14 +132,17 @@
 
 - (void) handleNewGeneration
 {
-    [self.ecosystemView refreshView:self.ecosystem];    
-    [self.ecosystem produceNextGeneration];        
+    if (working)
+    {
+        [self.ecosystemView refreshView:self.ecosystem];    
+        [self.ecosystem produceNextGeneration];
+    }
 }
 
 
 - (void) handleResetGeneration
 {
-    [self.ecosystemView refreshView:self.ecosystem];
+    [self.ecosystemView reset];
 }
 
 
@@ -177,6 +206,17 @@
 }
 
 
+- (void) saveButtonPressed
+{
+    [self pauseLife];
+    
+    SaveEcosystemViewController* saveController = [[SaveEcosystemViewController alloc] init];
+    [saveController setDelegate:self];
+    [self presentModalViewController:saveController animated:YES];
+    [saveController release];
+}
+
+
 - (void) resetEcosystem
 {
     /***********************************************************************************************/
@@ -184,6 +224,7 @@
 	/***********************************************************************************************/
     [initialPopulation removeAllObjects];
     [ecosystem scheduleReset];
+    working = NO;
 }
 
 
@@ -208,8 +249,9 @@
 {
     UIBarButtonItem* playButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(startLife)];
     UIBarButtonItem* resetButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemBookmarks target:self action:@selector(resetEcosystem)];
+    UIBarButtonItem* saveButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCamera target:self action:@selector(saveButtonPressed)];
 
-    self.toolbarItems = [NSArray arrayWithObjects:playButton, resetButton, nil];
+    self.toolbarItems = [NSArray arrayWithObjects:playButton, resetButton, saveButton, nil];
     [playButton release];
 }
 
@@ -225,6 +267,65 @@
 	/***********************************************************************************************/
     [super didReceiveMemoryWarning];
 }
+
+
+
+#pragma mark - SaveEcosystemViewControllerDelegateProtocol
+
+- (void) saveControllerreadyForDismissalWithName:(NSString*)ecosystemName
+{
+    [self archiveEcosystemWithName:ecosystemName];
+    [self dismissViewControllerAnimated:YES completion:^{
+        [self resumeLife];
+    }];
+}
+
+
+- (void) saveControllerWasCancel
+{
+    [self dismissViewControllerAnimated:YES completion:^{
+        [self resumeLife];
+    }];
+}
+
+
+
+#pragma mark - Saving the ecosystem to disk
+
+- (BOOL) archiveEcosystemWithName:(NSString*)name
+{
+    BOOL success = NO;   
+    NSArray* paths = NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES);
+    NSString* documentsDirectoryPath = nil;
+    
+    if ([paths count] > 0)
+    {        
+        documentsDirectoryPath = [paths objectAtIndex:0];
+        NSString* savedEcosystemsDirectoryPath = [documentsDirectoryPath stringByAppendingFormat:@"/%@", @"savedEcosystems"];
+        success = [[NSFileManager defaultManager] createDirectoryAtPath:savedEcosystemsDirectoryPath withIntermediateDirectories:YES attributes:nil error:nil];
+        NSString* dictionaryFilePath =  [savedEcosystemsDirectoryPath stringByAppendingFormat:@"/%@", name];
+        success = success && [NSKeyedArchiver archiveRootObject:self.ecosystem toFile:dictionaryFilePath];
+    }
+    
+    return success;
+}
+
+
+/*+ (id) unarchiveDataModel
+{
+    NSArray* paths = NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES);
+    NSString* documentsDirectoryPath = nil;
+    id record = nil;
+    
+    if ([paths count] > 0)
+    {        
+        documentsDirectoryPath = [paths objectAtIndex:0];
+        NSString* dictionaryFilePath =  [documentsDirectoryPath stringByAppendingFormat:@"/%@", MODEL_DATA_FILE_NAME];
+        record = [NSKeyedUnarchiver unarchiveObjectWithFile:dictionaryFilePath];
+    }
+    
+    return record;
+}*/
 
 
 - (void)dealloc
