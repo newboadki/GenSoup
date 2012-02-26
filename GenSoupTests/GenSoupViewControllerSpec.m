@@ -24,6 +24,11 @@ describe(@"viewDidLoad", ^{
         [controller.initialPopulation shouldNotBeNil];
     });
     
+    it(@"should set the working ivar to NO", ^{
+        [controller viewDidLoad];
+        STAssertTrue([[controller valueForKey:@"working"] boolValue] == NO, @"should set the working ivar to NO");
+    });
+    
 });
 
 
@@ -77,18 +82,40 @@ describe(@"startLife", ^{
         [controller release];
     });
     
-    
-    it(@"should set the ecosystemView's tapDelegate to itself", ^{
-        [[controller.ecosystem should] receive:@selector(setDelegate:) withArguments:controller];
-        [controller startLife];
-    });
-    
-    it(@"should send the message produceNextGeneration to the ecosystem instance", ^{
-        [[controller.ecosystem should] receive:@selector(produceNextGeneration)];
-        [controller startLife];
+    context(@"working ivar is NO", ^{
+        beforeEach(^{
+            [controller setValue:[NSNumber numberWithBool:NO] forKey:@"working"];
+        });
+        
+        it(@"should set the ecosystemView's tapDelegate to itself", ^{
+            [[controller.ecosystem should] receive:@selector(setDelegate:) withArguments:controller];
+            [controller startLife];
+        });
+        
+        it(@"should send the message produceNextGeneration to the ecosystem instance", ^{
+            [[controller.ecosystem should] receive:@selector(produceNextGeneration)];
+            [controller startLife];
+            
+        });
 
     });
     
+    context(@"working ivar is YES", ^{
+        beforeEach(^{
+            [controller setValue:[NSNumber numberWithBool:YES] forKey:@"working"];
+        });
+        
+        it(@"should not set the ecosystemView's tapDelegate to itself", ^{
+            [[controller.ecosystem shouldNot] receive:@selector(setDelegate:) withArguments:controller];
+            [controller startLife];
+        });
+        
+        it(@"should not send the message produceNextGeneration to the ecosystem instance", ^{
+            [[controller.ecosystem shouldNot] receive:@selector(produceNextGeneration)];
+            [controller startLife];            
+        });
+
+    });    
 });
 
 
@@ -108,15 +135,42 @@ describe(@"handleNewGeneration", ^{
         [controller release];
     });
         
-    it(@"should refresh de the ecosystem view", ^{
-        [[controller.ecosystemView should] receive:@selector(refreshView:) withArguments:controller.ecosystem];
-        [controller handleNewGeneration];
+    
+    context(@"working ivar is NO", ^{
+        beforeEach(^{
+            [controller setValue:[NSNumber numberWithBool:NO] forKey:@"working"];
+        });
+        
+        it(@"should not refresh de the ecosystem view", ^{
+            [[controller.ecosystemView shouldNot] receive:@selector(refreshView:) withArguments:controller.ecosystem];
+            [controller handleNewGeneration];
+        });
+        
+        it(@"should not produce the next generation", ^{
+            [[controller.ecosystem shouldNot] receive:@selector(produceNextGeneration)];
+            [controller handleNewGeneration];        
+        });
+
+        
     });
     
-    it(@"should produce the next generation", ^{
-        [[controller.ecosystem should] receive:@selector(produceNextGeneration)];
-        [controller handleNewGeneration];        
-    });
+    context(@"working ivar is YES", ^{
+        beforeEach(^{
+            [controller setValue:[NSNumber numberWithBool:YES] forKey:@"working"];
+        });
+        
+        it(@"should refresh de the ecosystem view", ^{
+            [[controller.ecosystemView should] receive:@selector(refreshView:) withArguments:controller.ecosystem];
+            [controller handleNewGeneration];
+        });
+        
+        it(@"should produce the next generation", ^{
+            [[controller.ecosystem should] receive:@selector(produceNextGeneration)];
+            [controller handleNewGeneration];        
+        });
+
+    });  
+    
 });
 
 
@@ -263,7 +317,7 @@ describe(@"handleResetGeneration:", ^{
     });
     
     it(@"should refresh the view with the current ecosystem", ^{
-        [[controller.ecosystemView should] receive:@selector(refreshView:) withArguments:controller.ecosystem];
+        [[controller.ecosystemView should] receive:@selector(reset)];
         [controller handleResetGeneration];
     });
     
@@ -296,6 +350,56 @@ describe(@"resetEcosystem", ^{
         [controller resetEcosystem];
     });
 
+});
+
+
+describe(@"pauseLife", ^{
+    
+    __block GenSoupViewController* controller;
+    
+    beforeEach(^{
+        controller = [[GenSoupViewController alloc] init];
+    });
+    
+    afterEach(^{
+        [controller release];
+    });
+    
+    
+    it(@"should empty the initial population", ^{
+        [controller setValue:[NSNumber numberWithBool:YES] forKey:@"working"];
+        [controller pauseLife];
+        STAssertTrue([[controller valueForKey:@"working"] boolValue] == NO, @"should empty the initial population");
+    });    
+});
+
+describe(@"resumeLife", ^{
+    
+    __block GenSoupViewController* controller;
+    
+    beforeEach(^{
+        controller = [[GenSoupViewController alloc] init];
+        id ecosystemMock = [KWMock nullMockForClass:[Ecosystem class]];
+        controller.ecosystem = ecosystemMock;
+    });
+    
+    afterEach(^{
+        [controller release];
+    });
+    
+    
+    it(@"should set working to YES", ^{
+        [controller setValue:[NSNumber numberWithBool:NO] forKey:@"working"];
+        [controller resumeLife];
+        STAssertTrue([[controller valueForKey:@"working"] boolValue] == YES, @"should empty the initial population");
+    });    
+
+    it(@"should produce the next generation", ^{
+        [[controller.ecosystem should] receive:@selector(produceNextGeneration)];
+        [controller resumeLife];
+    });    
+
+    
 });
 
 

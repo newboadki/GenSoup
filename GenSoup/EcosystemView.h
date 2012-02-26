@@ -23,5 +23,6 @@
 - (void) changeColorOfCellViewAtCoordinate:(Matrix2DCoordenate*)coord color:(UIColor*)newColor;
 - (void) refreshView:(Ecosystem*)ecosystem;
 - (void) setUpCellViewsWith:(int)numberOfRows columns:(int)numberOfcols cellViewWidth:(float)width cellViewHeight:(float)height;
+- (void) reset;
 
 @end

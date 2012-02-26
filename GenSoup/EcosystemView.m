@@ -123,6 +123,17 @@
 }
 
 
+- (void) reset
+{
+    [activeCellViews removeAllObjects];
+    
+    for (CellView* cv in [self subviews])
+    {
+        [cv setBackgroundColor:[UIColor grayColor]];
+    }
+}
+
+
 - (void) changeColorOfCellViewAtCoordinate:(Matrix2DCoordenate*)coord color:(UIColor*)newColor
 {    
     /***********************************************************************************************/
