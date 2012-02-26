@@ -68,6 +68,49 @@
     [initialPopulation release];
 
 }
+/*
+ - (void) reset
+ {
+ [activeCellViews removeAllObjects];
+ 
+ for (CellView* cv in [self subviews])
+ {
+ [cv setBackgroundColor:[UIColor grayColor]];
+ }
+ }
+
+  */
+- (void) testReset
+{
+    Matrix2DCoordenate* coord0 = [[Matrix2DCoordenate alloc] initWithRow:0 andColumn:0];
+    Cell* cell0 = [[Cell alloc] initWithCoordinate:coord0 andOrganismID:-1];
+    Matrix2DCoordenate* coord1 = [[Matrix2DCoordenate alloc] initWithRow:2 andColumn:0];
+    CellView* cellView0 = [[CellView alloc] initWithFrame:CGRectZero andColor:[UIColor yellowColor] andCoordinate:coord0];
+    CellView* cellView1 = [[CellView alloc] initWithFrame:CGRectZero andColor:[UIColor yellowColor] andCoordinate:coord1];
+
+    
+    NSMutableSet* activeCells = [[NSMutableSet alloc] init];
+    [activeCells addObject:cell0];
+    [activeCells addObject:cellView1];
+    
+    [view setActiveCellViews:activeCells];
+    [view addSubview:cellView0];
+    [view addSubview:cellView1];
+
+    
+    [view reset];
+    
+    STAssertTrue([activeCells count]==0, @"active cells shouls have count of 0, found %i", [activeCells count]);
+    STAssertTrue([[cellView1 backgroundColor] isEqual:[UIColor grayColor]],@"the cell that stopped being active should have gray color");
+    STAssertTrue([[cellView0 backgroundColor] isEqual:[UIColor grayColor]],@"the cell that stopped being active should have gray color");
+    
+    [coord0 release];
+    [coord1 release];
+    [cell0 release];
+    [cellView0 release];
+    [cellView1 release];
+    
+}
 
 - (void) testSetTapDelegate
 {
