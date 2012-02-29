@@ -14,8 +14,9 @@
 #import "Ecosystem.h"
 #import "CellViewDelegateProtocol.h"
 #import "SaveEcosystemViewController.h"
+#import "LoadEcosystemTableViewController.h"
 
-@interface GenSoupViewController : UIViewController <UIScrollViewDelegate, CellViewDelegateProtocol, SaveEcosystemViewControllerDelegateProtocol>
+@interface GenSoupViewController : UIViewController <UIScrollViewDelegate, CellViewDelegateProtocol, SaveEcosystemViewControllerDelegateProtocol, LoadEcosystemViewControllerDelegateProtocol>
 {
     BOOL working;
 }

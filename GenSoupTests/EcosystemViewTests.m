@@ -51,6 +51,7 @@
     Ecosystem* ecosystem = [[Ecosystem alloc] initWithRows:48 andColumns:32 andInitialPopulation:initialPopulation];
 
     [view setUpCellViewsWith:48 columns:32 cellViewWidth:10.0 cellViewHeight:10.0];
+    [ecosystem setValue:initialPopulation forKey:@"aliveCells"]; // this used to be set in the init method. After changes that does not happen
     [view refreshView:ecosystem];
     
     STAssertTrue([activeCells count]==1, @"active cells shouls have count of 1, found %i", [activeCells count]==1);
@@ -136,5 +137,6 @@
 
     [self testSetUpCellViews];
 }
+
 
 @end

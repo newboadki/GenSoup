@@ -12,11 +12,12 @@
 #define NUMBER_OF_COLUMS 32
 
 @interface GenSoupViewController()
-- (void) produceNextGeneration;
 - (void) startLife;
 - (void) configureScrollView;
 - (void) setUpToolBarItems;
 - (BOOL) archiveEcosystemWithName:(NSString*)name;
+- (id) unarchiveEcosystemWithName:(NSString*)name;
+- (NSArray*) savedEcosystemsArray;
 @end
 
 
@@ -36,21 +37,29 @@
     /* Implement viewDidLoad to do additional setup after loading the view, typically from a nib.  */
 	/***********************************************************************************************/   
     [super viewDidLoad];
-        
+
+    // Tool bar
+    [self setUpToolBarItems];  
+
     // Set initial population to empty set
     NSMutableSet* set = [[NSMutableSet alloc] init];
     [self setInitialPopulation:set];
     [set release];    
+
+    // Ecosystem
+    Ecosystem* eco = [[Ecosystem alloc] initWithRows:NUMBER_OF_ROWS andColumns:NUMBER_OF_COLUMS andInitialPopulation:initialPopulation];        
+    [self setEcosystem:eco];
+    [eco release];    
+    [self.ecosystem setDelegate:self];
     
-    [self setUpToolBarItems];  
-    
+    // Flag for weather the calculation of new generations is working or not.
     working = NO;
 }
 
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    if ([initialPopulation count] == 0) 
+    if ([ecosystem.initialPopulation count] == 0) 
     {
         [super viewWillAppear:animated];
         
@@ -96,13 +105,8 @@
 	/***********************************************************************************************/
     if (!working)
     {
-        working = YES;
-        
-        Ecosystem* eco = [[Ecosystem alloc] initWithRows:NUMBER_OF_ROWS andColumns:NUMBER_OF_COLUMS andInitialPopulation:initialPopulation];        
-        [self setEcosystem:eco];
-        [eco release];
-        
-        [self.ecosystem setDelegate:self];
+        working = YES; 
+        [self.ecosystem setUp];
         [self.ecosystem produceNextGeneration];
     }
 }
@@ -117,21 +121,16 @@
 - (void) resumeLife
 {
     working = YES;
-    [self.ecosystem produceNextGeneration];
-}
-
-
-- (void) produceNextGeneration
-{
-    /***********************************************************************************************/
-    /* Update the model and the view, concordantly.                                                */
-	/***********************************************************************************************/
-
+    if ([ecosystem.aliveCells count] > 0)
+    {
+        [self handleNewGeneration];
+    }
 }
 
 
 - (void) handleNewGeneration
 {
+    
     if (working)
     {
         [self.ecosystemView refreshView:self.ecosystem];    
@@ -169,13 +168,13 @@
     Cell* cell = [[Cell alloc] initWithCoordinate:coordinateCopy andOrganismID:-1];    
     [coordinateCopy release];
     
-    if ([initialPopulation member:cell])
+    if ([ecosystem.initialPopulation member:cell])
     {
-        [initialPopulation removeObject:cell];
+        [ecosystem.initialPopulation removeObject:cell];
     }
     else
     {
-        [initialPopulation addObject:cell];
+        [ecosystem.initialPopulation addObject:cell];
     }
     
     [cell release];
@@ -187,7 +186,13 @@
 
 - (IBAction) loadButtonPressed:(id)sender
 {
-
+    [self pauseLife];
+    
+    NSArray* savedEcosystemsPaths = [self savedEcosystemsArray];
+    LoadEcosystemTableViewController* loadController = [[LoadEcosystemTableViewController alloc] init];
+    loadController.savedEcosystems = savedEcosystemsPaths;
+    loadController.delegate = self;
+    [self presentModalViewController:loadController animated:YES];
 }
 
 
@@ -223,8 +228,15 @@
     /* Empty all the data structures, clean the view up.                                           */
 	/***********************************************************************************************/
     [initialPopulation removeAllObjects];
-    [ecosystem scheduleReset];
-    working = NO;
+    if (working)
+    {
+        [ecosystem scheduleReset];
+        working = NO;
+    }
+    else
+    {
+        [self handleResetGeneration];
+    }
 }
 
 
@@ -290,6 +302,31 @@
 
 
 
+#pragma mark - LoadEcosystemViewControllerDelegateProtocol
+
+- (void) loadControllerReadyForDismissalWithName:(NSString*)ecosystemName
+{
+    Ecosystem* eco = (Ecosystem*)[self unarchiveEcosystemWithName:ecosystemName];
+    [eco setDelegate:self];
+    
+    [self setEcosystem:eco];
+    [self.ecosystem setUp];
+    [self.ecosystemView reset];    
+    [self.ecosystemView refreshView:self.ecosystem];
+    
+    [self dismissModalViewControllerAnimated:YES];
+}
+
+
+- (void) loadControllerWasCancel
+{
+    [self dismissViewControllerAnimated:YES completion:^{
+        [self resumeLife];
+    }];
+}
+
+
+
 #pragma mark - Saving the ecosystem to disk
 
 - (BOOL) archiveEcosystemWithName:(NSString*)name
@@ -305,27 +342,44 @@
         success = [[NSFileManager defaultManager] createDirectoryAtPath:savedEcosystemsDirectoryPath withIntermediateDirectories:YES attributes:nil error:nil];
         NSString* dictionaryFilePath =  [savedEcosystemsDirectoryPath stringByAppendingFormat:@"/%@", name];
         success = success && [NSKeyedArchiver archiveRootObject:self.ecosystem toFile:dictionaryFilePath];
+        
+        NSLog(@"- rows: %d, cols:%d, count:%d", [[ecosystem valueForKey:@"rows"] intValue], [[ecosystem valueForKey:@"columns"] intValue], [ecosystem.initialPopulation count]);
+        NSLog(@"SUCESS: %d", success);
+     
+        Ecosystem* restored = (Ecosystem*)[NSKeyedUnarchiver unarchiveObjectWithFile:dictionaryFilePath];
+        NSLog(@"- rows: %d, cols:%d, count:%d", [[restored valueForKey:@"rows"] intValue], [[restored valueForKey:@"columns"] intValue], [restored.initialPopulation count]);
     }
     
     return success;
 }
 
 
-/*+ (id) unarchiveDataModel
+
+- (id) unarchiveEcosystemWithName:(NSString*)name
+{
+    return [NSKeyedUnarchiver unarchiveObjectWithFile:name];
+}
+
+
+- (NSArray*) savedEcosystemsArray
 {
     NSArray* paths = NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES);
     NSString* documentsDirectoryPath = nil;
-    id record = nil;
+    NSMutableArray* results = [NSMutableArray array];
     
     if ([paths count] > 0)
     {        
         documentsDirectoryPath = [paths objectAtIndex:0];
-        NSString* dictionaryFilePath =  [documentsDirectoryPath stringByAppendingFormat:@"/%@", MODEL_DATA_FILE_NAME];
-        record = [NSKeyedUnarchiver unarchiveObjectWithFile:dictionaryFilePath];
+        NSString* savedEcosystemsPath =  [documentsDirectoryPath stringByAppendingFormat:@"/%@", @"savedEcosystems"];
+        NSArray* contents = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:savedEcosystemsPath error:nil];
+        for (NSString* fileName in contents)
+        {
+            [results addObject:[savedEcosystemsPath stringByAppendingFormat:@"/%@", fileName]];
+        }
     }
     
-    return record;
-}*/
+    return results;
+}
 
 
 - (void)dealloc

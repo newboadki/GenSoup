@@ -29,6 +29,15 @@ describe(@"viewDidLoad", ^{
         STAssertTrue([[controller valueForKey:@"working"] boolValue] == NO, @"should set the working ivar to NO");
     });
     
+    it(@"should create an instance of the ecosystem using the initial population", ^{
+        [controller viewDidLoad];
+        [controller.ecosystem shouldNotBeNil];        
+    });
+
+    it(@"should set the ecosystemView's tapDelegate to itself", ^{        
+        [controller viewDidLoad];
+        [[controller.ecosystem.delegate should] equal:controller];        
+    });
 });
 
 
@@ -86,12 +95,7 @@ describe(@"startLife", ^{
         beforeEach(^{
             [controller setValue:[NSNumber numberWithBool:NO] forKey:@"working"];
         });
-        
-        it(@"should set the ecosystemView's tapDelegate to itself", ^{
-            [[controller.ecosystem should] receive:@selector(setDelegate:) withArguments:controller];
-            [controller startLife];
-        });
-        
+                
         it(@"should send the message produceNextGeneration to the ecosystem instance", ^{
             [[controller.ecosystem should] receive:@selector(produceNextGeneration)];
             [controller startLife];
@@ -182,6 +186,9 @@ describe(@"didSelectCellViewAtCoordinate:", ^{
         controller = [[GenSoupViewController alloc] init];
         NSMutableSet* initialPopulation = [NSMutableSet set];
         controller.initialPopulation = initialPopulation;
+        Ecosystem* ecosystem = [[Ecosystem alloc] initWithRows:5 andColumns:5 andInitialPopulation:initialPopulation];
+        controller.ecosystem = ecosystem;
+        [ecosystem release];
     });
     
     afterEach(^{
@@ -191,8 +198,8 @@ describe(@"didSelectCellViewAtCoordinate:", ^{
     it(@"should add a cell to the initial population set if it wasn't there", ^{
         Matrix2DCoordenate* coor = [[Matrix2DCoordenate alloc] initWithRow:2 andColumn:3];
         [controller didSelectCellViewAtCoordinate:coor];
-        NSMutableSet* ip = controller.initialPopulation;
-        Cell* addedCell = [controller.initialPopulation anyObject];
+        NSMutableSet* ip = controller.ecosystem.initialPopulation;
+        Cell* addedCell = [controller.ecosystem.initialPopulation anyObject];
         STAssertTrue([ip count] == 1, @"");
         STAssertTrue([addedCell.coordinate row] == 2, @"");
         STAssertTrue([addedCell.coordinate column] == 3, @"");        
@@ -202,14 +209,13 @@ describe(@"didSelectCellViewAtCoordinate:", ^{
     it(@"should remove a cell from the initial population set if it was already there", ^{
         Matrix2DCoordenate* coor = [[Matrix2DCoordenate alloc] initWithRow:2 andColumn:3];
         Cell* existentCell = [[Cell alloc] initWithCoordinate:coor andOrganismID:-1];
-        [controller.initialPopulation addObject:existentCell];
+        [controller.ecosystem.initialPopulation addObject:existentCell];
         [existentCell release];
         
-        STAssertTrue([controller.initialPopulation count] == 1, @"");
+        STAssertTrue([controller.ecosystem.initialPopulation count] == 1, @"");
         [controller didSelectCellViewAtCoordinate:coor];
-        STAssertTrue([controller.initialPopulation count] == 0, @"");
-        [coor release];        
-
+        STAssertTrue([controller.ecosystem.initialPopulation count] == 0, @"");
+        [coor release];
     });
 });
 
@@ -345,8 +351,22 @@ describe(@"resetEcosystem", ^{
         [controller resetEcosystem];
     });
 
-    it(@"should empty the initial population", ^{
+    it(@"should schedule the reset in the ecosystem if working is set to YES", ^{
+        [controller setValue:[NSNumber numberWithBool:YES] forKey:@"working"];
         [[controller.ecosystem should] receive:@selector(scheduleReset)];
+        [controller resetEcosystem];
+    });
+
+    it(@"should set working to NO it was set to YES", ^{
+        [controller setValue:[NSNumber numberWithBool:YES] forKey:@"working"];
+        [controller resetEcosystem];
+        STAssertTrue([[controller valueForKey:@"working"] boolValue]==NO, @"should set working to NO it was set to YES");
+    });
+
+    
+    it(@"should receive handleResetGeneration if working is set to NO", ^{
+        [controller setValue:[NSNumber numberWithBool:NO] forKey:@"working"];
+        [[controller should] receive:@selector(handleResetGeneration)];
         [controller resetEcosystem];
     });
 
@@ -380,7 +400,9 @@ describe(@"resumeLife", ^{
     beforeEach(^{
         controller = [[GenSoupViewController alloc] init];
         id ecosystemMock = [KWMock nullMockForClass:[Ecosystem class]];
+        id aliveCellsMock = [KWMock nullMockForClass:[NSMutableSet class]];
         controller.ecosystem = ecosystemMock;
+        [ecosystemMock stub:@selector(aliveCells) andReturn:aliveCellsMock];
     });
     
     afterEach(^{
@@ -394,12 +416,19 @@ describe(@"resumeLife", ^{
         STAssertTrue([[controller valueForKey:@"working"] boolValue] == YES, @"should empty the initial population");
     });    
 
-    it(@"should produce the next generation", ^{
-        [[controller.ecosystem should] receive:@selector(produceNextGeneration)];
+    it(@"should produce the next generation if there are cells in aliveCells", ^{
+        [controller.ecosystem.aliveCells stub:@selector(count) andReturn:theValue(2)];
+        [[controller should] receive:@selector(handleNewGeneration)];
         [controller resumeLife];
     });    
 
-    
+
+    it(@"should not produce the next generation if there are not any cells in aliveCells", ^{
+        [controller.ecosystem.aliveCells stub:@selector(count) andReturn:theValue(0)];
+        [[controller shouldNot] receive:@selector(handleNewGeneration)];
+        [controller resumeLife];
+    });    
+
 });
 
 
