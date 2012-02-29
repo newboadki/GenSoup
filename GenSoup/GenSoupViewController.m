@@ -120,9 +120,9 @@
 
 - (void) resumeLife
 {
-    working = YES;
-    if ([ecosystem.aliveCells count] > 0)
-    {
+    if (!working && ([ecosystem.aliveCells count] > 0))
+    {               
+        working = YES;
         [self handleNewGeneration];
     }
 }
@@ -130,7 +130,6 @@
 
 - (void) handleNewGeneration
 {
-    
     if (working)
     {
         [self.ecosystemView refreshView:self.ecosystem];    
@@ -141,8 +140,12 @@
 
 - (void) handleResetGeneration
 {
+    /***********************************************************************************************/
+    /* This message is set by the ecosystem, when it has reset its data structures.                */
+	/***********************************************************************************************/   
     [self.ecosystemView reset];
 }
+
 
 
 #pragma mark - UIScrollViewDelegate Protocol Methods 
@@ -309,9 +312,9 @@
     Ecosystem* eco = (Ecosystem*)[self unarchiveEcosystemWithName:ecosystemName];
     [eco setDelegate:self];
     
-    [self setEcosystem:eco];
-    [self.ecosystem setUp];
-    [self.ecosystemView reset];    
+    [self setEcosystem:eco];                            // Set the model
+    [self.ecosystem setUp];                             // Prepare the model for execution
+    [self.ecosystemView reset];                         // Prepare the view
     [self.ecosystemView refreshView:self.ecosystem];
     
     [self dismissModalViewControllerAnimated:YES];

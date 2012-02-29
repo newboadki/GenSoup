@@ -410,23 +410,36 @@ describe(@"resumeLife", ^{
     });
     
     
-    it(@"should set working to YES", ^{
+    it(@"should not produce the next generation if there are cells in aliveCells and working is YES", ^{
+        [controller.ecosystem.aliveCells stub:@selector(count) andReturn:theValue(2)];
+        [controller setValue:[NSNumber numberWithBool:YES] forKey:@"working"];
+        [[controller shouldNot] receive:@selector(handleNewGeneration)];
+        [controller resumeLife];        
+        STAssertTrue([[controller valueForKey:@"working"] boolValue] == YES, @"should empty the initial population");
+    });
+
+    it(@"should produce the next generation if there are cells in aliveCells and working is NO", ^{
         [controller setValue:[NSNumber numberWithBool:NO] forKey:@"working"];
+        [controller.ecosystem.aliveCells stub:@selector(count) andReturn:theValue(2)];
+        [[controller should] receive:@selector(handleNewGeneration)];
         [controller resumeLife];
         STAssertTrue([[controller valueForKey:@"working"] boolValue] == YES, @"should empty the initial population");
     });    
 
-    it(@"should produce the next generation if there are cells in aliveCells", ^{
-        [controller.ecosystem.aliveCells stub:@selector(count) andReturn:theValue(2)];
-        [[controller should] receive:@selector(handleNewGeneration)];
-        [controller resumeLife];
-    });    
-
-
-    it(@"should not produce the next generation if there are not any cells in aliveCells", ^{
+    it(@"should not produce the next generation if there are not any cells in aliveCells and working is YES", ^{
+        [controller setValue:[NSNumber numberWithBool:YES] forKey:@"working"];
         [controller.ecosystem.aliveCells stub:@selector(count) andReturn:theValue(0)];
         [[controller shouldNot] receive:@selector(handleNewGeneration)];
         [controller resumeLife];
+        STAssertTrue([[controller valueForKey:@"working"] boolValue] == YES, @"should empty the initial population");
+    });    
+
+    it(@"should not produce the next generation if there are not any cells in aliveCells and working is NO", ^{
+        [controller setValue:[NSNumber numberWithBool:NO] forKey:@"working"];
+        [controller.ecosystem.aliveCells stub:@selector(count) andReturn:theValue(0)];
+        [[controller shouldNot] receive:@selector(handleNewGeneration)];
+        [controller resumeLife];
+        STAssertTrue([[controller valueForKey:@"working"] boolValue] == NO, @"should empty the initial population");
     });    
 
 });
