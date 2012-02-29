@@ -8,7 +8,6 @@
 
 #import "EcosystemTests.h"
 
-
 @implementation EcosystemTests
 
 - (void) setUp 
@@ -33,16 +32,36 @@
     NSNumber*     columns = [eco valueForKey:@"columns"];
     
     STAssertNotNil(initialPopulation, @"the init method should set the initialPopulation");
-    STAssertNotNil(aliveCells, @"the init method should set the aliveCells");
-    STAssertNotNil(emptyWith3Alive, @"the init method should set the emptyWith3Alive");
-    STAssertNotNil(nextGenAliveCells, @"the init method should set the nextGenAliveCells");
-    STAssertNotNil(nextGenEmptyWith3Alive, @"the init method should set the nextGenEmptyWith3Alive");
     STAssertNotNil(rows, @"the init method should set the rows");
     STAssertNotNil(columns, @"the init method should set the columns");
     
     [eco release];
     [set release];
 }
+
+- (void) testSetUp
+{
+    NSMutableSet* set = [[NSMutableSet alloc] init];
+    Ecosystem* eco = [[Ecosystem alloc] initWithRows:50 andColumns:50 andInitialPopulation:set];
+    
+    
+    [eco setUp];
+
+    NSMutableSet* initialPopulation = [eco valueForKey:@"initialPopulation"];
+    NSMutableSet* aliveCells = [eco valueForKey:@"aliveCells"];
+    NSMutableSet* emptyWith3Alive = [eco valueForKey:@"emptyWith3Alive"];
+    NSMutableSet* nextGenAliveCells = [eco valueForKey:@"nextGenAliveCells"];
+    NSMutableSet* nextGenEmptyWith3Alive = [eco valueForKey:@"nextGenEmptyWith3Alive"];
+
+    STAssertEqualObjects(initialPopulation, aliveCells, @"the init method should set the aliveCells with the initial population");
+    STAssertNotNil(emptyWith3Alive, @"the init method should set the emptyWith3Alive");
+    STAssertNotNil(nextGenAliveCells, @"the init method should set the nextGenAliveCells");
+    STAssertNotNil(nextGenEmptyWith3Alive, @"the init method should set the nextGenEmptyWith3Alive");
+    
+    [eco release];
+    [set release];
+}
+
 
 - (void) testRowValid
 {
@@ -370,11 +389,11 @@
     
     
     // Create the ecosystem and set the structures
-    Ecosystem* eco = [[Ecosystem alloc] initWithRows:5 andColumns:5 andInitialPopulation:aliveCells];    
+    Ecosystem* eco = [[Ecosystem alloc] initWithRows:5 andColumns:5 andInitialPopulation:aliveCells];   
+    [eco setValue:aliveCells forKey:@"aliveCells"];
     [eco setValue:emptyWith3Alive forKey:@"emptyWith3Alive"];
     [eco setValue:nextGenAliveCells forKey:@"nextGenAliveCells"];
     [eco setValue:nextGenEmptyWith3Alive forKey:@"nextGenEmptyWith3Alive"];
-    
     
     [eco updateCurrentCellStateForNextGeneration];
         
@@ -575,5 +594,14 @@
     [nextGenEmptyWith3Alive release];
 
 }
+
+
+- (void) testProduceNextGenThrowsExceptionIfNotSetUp
+{
+    Ecosystem* eco = [[Ecosystem alloc] initWithRows:5 andColumns:5 andInitialPopulation:nil];
+    [eco setValue:[NSNumber numberWithBool:NO] forKey:@"isSetUp"];
+    STAssertThrows([eco produceNextGeneration], @"testProduceNextGenThrowsExceptionIfNotSetUp");
+}
+
 
 @end

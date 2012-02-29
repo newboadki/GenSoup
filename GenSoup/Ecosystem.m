@@ -21,7 +21,13 @@
 - (BOOL) colValid:(int) col;
 - (void) findEmptyPostionsWith3AliveForSet:(NSMutableSet*)aliveSet andEmptyWith3Set:(NSMutableSet*)emptySet;
 
+
 @property BOOL busyCalculatingNextGeneration;
+
+@property (retain, nonatomic) NSMutableSet* aliveCells;
+@property (retain, nonatomic) NSMutableSet* emptyWith3Alive;
+@property (retain, nonatomic) NSMutableSet* nextGenAliveCells;
+@property (retain, nonatomic) NSMutableSet* nextGenEmptyWith3Alive;
 
 @end
 
@@ -29,7 +35,7 @@
 
 @implementation Ecosystem
 
-@synthesize aliveCells;
+@synthesize aliveCells, emptyWith3Alive, nextGenAliveCells, nextGenEmptyWith3Alive;
 @synthesize delegate;
 @synthesize busyCalculatingNextGeneration;
 @synthesize initialPopulation;
@@ -51,20 +57,14 @@
             @throw @"The given population has more elements than the matrix defined by the given rows and columns.";
             
         self->initialPopulation = [population mutableCopy];
-        self->aliveCells = [population mutableCopy];
-        
-        self->emptyWith3Alive = [[NSMutableSet alloc] init];
-        self->nextGenAliveCells = [[NSMutableSet alloc] init];
-        self->nextGenEmptyWith3Alive = [[NSMutableSet alloc] init];
         self->rows = theRows;
         self->columns = theColumns;
-        [self setBusyCalculatingNextGeneration:NO];
-        [self findEmptyPostionsWith3AliveForSet:self->aliveCells andEmptyWith3Set:self->emptyWith3Alive];
         
         operationQueue = [[NSOperationQueue alloc] init];
         [operationQueue setMaxConcurrentOperationCount:1];
         
         resetScheduled = NO;
+        isSetUp = NO;
     }
     
     return self;
@@ -77,6 +77,19 @@
     /* init method.                                                                                */
 	/***********************************************************************************************/
     @throw @"use initWithRows:andColumns:andInitialPopulation instead.";
+}
+
+
+- (void) setUp
+{    
+    self.aliveCells = [[initialPopulation mutableCopy] autorelease];    
+    self.emptyWith3Alive = [[[NSMutableSet alloc] init] autorelease];
+    self.nextGenAliveCells = [[[NSMutableSet alloc] init] autorelease];
+    self.nextGenEmptyWith3Alive = [[[NSMutableSet alloc] init] autorelease];
+    [self setBusyCalculatingNextGeneration:NO];
+    [self findEmptyPostionsWith3AliveForSet:self->aliveCells andEmptyWith3Set:self->emptyWith3Alive];
+    
+    isSetUp = YES;
 }
 
 
@@ -114,14 +127,19 @@
 {
     /***********************************************************************************************/
     /* Iterate through occuped cells and updates it.                                               */
-	/***********************************************************************************************/    
+	/***********************************************************************************************/
+    if (!isSetUp)
+    {
+        @throw @"The ecosystem has not been set up before execution.";
+    }
+    
     NSBlockOperation* op = [NSBlockOperation blockOperationWithBlock:^{
         [self createNewAliveForNextGeneration];
         [self updateCurrentCellStateForNextGeneration];
         [self eliminateEmptyCoordinatesForNextGeneration];
         [self findEmptyPostionsWith3AliveForSet:self->nextGenAliveCells andEmptyWith3Set:self->nextGenEmptyWith3Alive];
         [self swapCurrentAndNextGenerationSets];    
-        
+
         if (resetScheduled)
         {
             [self reset];

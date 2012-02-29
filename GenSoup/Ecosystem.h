@@ -28,6 +28,7 @@
     int columns;
     NSOperationQueue* operationQueue;
     BOOL resetScheduled;
+    BOOL isSetUp;
 }
 
 @property (retain, nonatomic, readonly) NSMutableSet* aliveCells;
@@ -40,5 +41,6 @@
 - (void) produceNextGeneration;
 - (void) reset;
 - (void) scheduleReset;
+- (void) setUp;
 
 @end
