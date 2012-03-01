@@ -203,6 +203,17 @@
 }
 
 
+- (void) saveButtonPressed
+{
+    [self pauseLife];
+    
+    SaveEcosystemViewController* saveController = [[SaveEcosystemViewController alloc] init];
+    [saveController setDelegate:self];
+    [self presentModalViewController:saveController animated:YES];
+    [saveController release];
+}
+
+
 - (IBAction) menuButtonPressed:(id)sender
 {
     if([[self navigationController] isToolbarHidden])
@@ -215,17 +226,6 @@
         [[[[self navigationController] navigationItem] rightBarButtonItem] setTitle:@"Menu"];
         [[self navigationController] setToolbarHidden:YES animated:NO];
     }
-}
-
-
-- (void) saveButtonPressed
-{
-    [self pauseLife];
-    
-    SaveEcosystemViewController* saveController = [[SaveEcosystemViewController alloc] init];
-    [saveController setDelegate:self];
-    [self presentModalViewController:saveController animated:YES];
-    [saveController release];
 }
 
 
