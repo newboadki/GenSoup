@@ -19,6 +19,7 @@
 @interface GenSoupViewController : UIViewController <UIScrollViewDelegate, CellViewDelegateProtocol, SaveEcosystemViewControllerDelegateProtocol, LoadEcosystemViewControllerDelegateProtocol>
 {
     BOOL working;
+    BOOL resetScheduled;
 }
 
 @property (retain, nonatomic) Ecosystem* ecosystem;
@@ -26,7 +27,6 @@
 @property (retain, nonatomic) NSMutableSet* initialPopulation;
 
 - (void) handleNewGeneration;
-- (void) handleResetGeneration;
 - (void) resetEcosystem;
 - (void) saveButtonPressed;
 - (void) pauseLife;

@@ -42,6 +42,7 @@
 @synthesize storageName;
 
 
+
 #pragma mark - Init Methods
 
 - (id) initWithRows:(int)theRows andColumns:(int)theColumns andInitialPopulation:(NSSet*)population
@@ -63,7 +64,6 @@
         operationQueue = [[NSOperationQueue alloc] init];
         [operationQueue setMaxConcurrentOperationCount:1];
         
-        resetScheduled = NO;
         isSetUp = NO;
     }
     
@@ -132,25 +132,16 @@
     {
         @throw @"The ecosystem has not been set up before execution.";
     }
-    
+      
     NSBlockOperation* op = [NSBlockOperation blockOperationWithBlock:^{
         [self createNewAliveForNextGeneration];
         [self updateCurrentCellStateForNextGeneration];
         [self eliminateEmptyCoordinatesForNextGeneration];
         [self findEmptyPostionsWith3AliveForSet:self->nextGenAliveCells andEmptyWith3Set:self->nextGenEmptyWith3Alive];
-        [self swapCurrentAndNextGenerationSets];    
-
-        if (resetScheduled)
-        {
-            [self reset];
-            resetScheduled = NO;
-            [delegate performSelectorOnMainThread:@selector(handleResetGeneration) withObject:nil waitUntilDone:YES];
-        }
-        else
-        {
-            [delegate performSelectorOnMainThread:@selector(handleNewGeneration) withObject:nil waitUntilDone:YES];
-        }
-    }];
+        [self swapCurrentAndNextGenerationSets];
+        
+        [delegate performSelectorOnMainThread:@selector(handleNewGeneration) withObject:nil waitUntilDone:YES];
+    }];    
     
     [operationQueue addOperation:op];        
 }
@@ -394,12 +385,6 @@
 
 
 #pragma mark - Reset
-
-- (void) scheduleReset
-{
-    resetScheduled = YES;
-}
-
 
 - (void) reset
 {

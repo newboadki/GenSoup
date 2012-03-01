@@ -26,8 +26,7 @@
     NSMutableSet* nextGenEmptyWith3Alive;
     int rows;
     int columns;
-    NSOperationQueue* operationQueue;
-    BOOL resetScheduled;
+    NSOperationQueue* operationQueue;    
     BOOL isSetUp;
 }
 
@@ -40,7 +39,6 @@
 - (void) printToConsole;
 - (void) produceNextGeneration;
 - (void) reset;
-- (void) scheduleReset;
 - (void) setUp;
 
 @end

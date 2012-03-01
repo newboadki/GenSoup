@@ -98,9 +98,19 @@ describe(@"startLife", ^{
                 
         it(@"should send the message produceNextGeneration to the ecosystem instance", ^{
             [[controller.ecosystem should] receive:@selector(produceNextGeneration)];
-            [controller startLife];
-            
+            [controller startLife];            
         });
+        
+        it(@"should set up the ecosystem", ^{
+            [[controller.ecosystem should] receive:@selector(setUp)];
+            [controller startLife];            
+        });
+
+        it(@"should set working to YES", ^{            
+            [controller startLife];       
+            STAssertTrue([[controller valueForKey:@"working"] boolValue] == YES, @"should set working to YES");
+        });
+
 
     });
     
@@ -109,14 +119,19 @@ describe(@"startLife", ^{
             [controller setValue:[NSNumber numberWithBool:YES] forKey:@"working"];
         });
         
-        it(@"should not set the ecosystemView's tapDelegate to itself", ^{
-            [[controller.ecosystem shouldNot] receive:@selector(setDelegate:) withArguments:controller];
-            [controller startLife];
-        });
-        
         it(@"should not send the message produceNextGeneration to the ecosystem instance", ^{
             [[controller.ecosystem shouldNot] receive:@selector(produceNextGeneration)];
             [controller startLife];            
+        });
+        
+        it(@"should not set up the ecosystem", ^{
+            [[controller.ecosystem shouldNot] receive:@selector(setUp)];
+            [controller startLife];            
+        });
+        
+        it(@"should not set working to YES", ^{            
+            [controller startLife];       
+            STAssertTrue([[controller valueForKey:@"working"] boolValue] == YES, @"should set working to NO");
         });
 
     });    
@@ -139,23 +154,67 @@ describe(@"handleNewGeneration", ^{
         [controller release];
     });
         
+    it(@"should refresh the view with the ecosystem", ^{
+        [[controller.ecosystemView should] receive:@selector(refreshView:) withArguments:controller.ecosystem];
+        [controller handleNewGeneration];
+    });
     
     context(@"working ivar is NO", ^{
         beforeEach(^{
             [controller setValue:[NSNumber numberWithBool:NO] forKey:@"working"];
         });
-        
-        it(@"should not refresh de the ecosystem view", ^{
-            [[controller.ecosystemView shouldNot] receive:@selector(refreshView:) withArguments:controller.ecosystem];
-            [controller handleNewGeneration];
+                
+        context(@"resetScheduled ivar is NO", ^{
+            beforeEach(^{
+                [controller setValue:[NSNumber numberWithBool:NO] forKey:@"resetScheduled"];
+            });            
+            
+            it(@"should not produce the next generation", ^{
+                [[controller.ecosystem shouldNot] receive:@selector(produceNextGeneration)];
+                [controller handleNewGeneration];            
+            });
+            
+            it(@"should not send the message resetEcosystem to itself", ^{
+                [[controller shouldNot] receive:@selector(resetEcosystem)];
+                [controller handleNewGeneration];
+            });
+            
+            it(@"should not reset the ecosystem view", ^{
+                [[controller.ecosystemView shouldNot] receive:@selector(reset)];
+                [controller handleNewGeneration];
+            });
+            
+            it(@"should not set resetScheduled to NO", ^{
+                [controller handleNewGeneration];
+                STAssertTrue([[controller valueForKey:@"resetScheduled"] boolValue] == NO, @"should not set resetScheduled to NO");                
+            });
+            
+            it(@"should not set working to NO", ^{
+                [controller handleNewGeneration];
+                STAssertTrue([[controller valueForKey:@"working"] boolValue] == NO, @"should not set working to NO");
+            });
         });
         
-        it(@"should not produce the next generation", ^{
-            [[controller.ecosystem shouldNot] receive:@selector(produceNextGeneration)];
-            [controller handleNewGeneration];        
-        });
-
-        
+        context(@"resetScheduled ivar is YES", ^{
+            beforeEach(^{
+                [controller setValue:[NSNumber numberWithBool:YES] forKey:@"resetScheduled"];
+            }); 
+            
+            it(@"should not produce the next generation", ^{
+                [[controller.ecosystem shouldNot] receive:@selector(produceNextGeneration)];
+                [controller handleNewGeneration];            
+            });
+            
+            it(@"should not send the message resetEcosystem to itself", ^{
+                [[controller shouldNot] receive:@selector(resetEcosystem)];
+                [controller handleNewGeneration];
+            });
+            
+            it(@"should not reset the ecosystem view", ^{
+                [[controller.ecosystemView shouldNot] receive:@selector(reset)];
+                [controller handleNewGeneration];
+            });
+        });        
     });
     
     context(@"working ivar is YES", ^{
@@ -163,18 +222,63 @@ describe(@"handleNewGeneration", ^{
             [controller setValue:[NSNumber numberWithBool:YES] forKey:@"working"];
         });
         
-        it(@"should refresh de the ecosystem view", ^{
-            [[controller.ecosystemView should] receive:@selector(refreshView:) withArguments:controller.ecosystem];
-            [controller handleNewGeneration];
+        context(@"resetScheduled ivar is NO", ^{
+            beforeEach(^{
+                [controller setValue:[NSNumber numberWithBool:NO] forKey:@"resetScheduled"];
+            });
+            
+            it(@"should produce the next generation", ^{
+                [[controller.ecosystem should] receive:@selector(produceNextGeneration)];
+                [controller handleNewGeneration];            
+            });
+            
+            it(@"should not send the message resetEcosystem to itself", ^{
+                [[controller shouldNot] receive:@selector(resetEcosystem)];
+                [controller handleNewGeneration];
+            });
+            
+            it(@"should not reset the ecosystem view", ^{
+                [[controller.ecosystemView shouldNot] receive:@selector(reset)];
+                [controller handleNewGeneration];
+            });
+            
+            it(@"should not set resetScheduled to NO", ^{
+                [controller handleNewGeneration];
+                STAssertTrue([[controller valueForKey:@"resetScheduled"] boolValue] == NO, @"should not set resetScheduled to NO");                
+            });
+            
+            it(@"should not set working to NO", ^{
+                [controller handleNewGeneration];
+                STAssertTrue([[controller valueForKey:@"working"] boolValue] == YES, @"should not set working to NO");
+            });
         });
         
-        it(@"should produce the next generation", ^{
-            [[controller.ecosystem should] receive:@selector(produceNextGeneration)];
-            [controller handleNewGeneration];        
-        });
-
-    });  
-    
+        context(@"resetScheduled ivar is YES", ^{
+            beforeEach(^{
+                [controller setValue:[NSNumber numberWithBool:YES] forKey:@"resetScheduled"];
+            });
+            
+            it(@"should send the message resetEcosystem to itself", ^{
+                [[controller should] receive:@selector(resetEcosystem)];
+                [controller handleNewGeneration];
+            });
+            
+            it(@"should reset the ecosystem view", ^{
+                [[controller.ecosystemView should] receive:@selector(reset)];
+                [controller handleNewGeneration];
+            });
+            
+            it(@"should set resetScheduled to NO", ^{
+                [controller handleNewGeneration];
+                STAssertTrue([[controller valueForKey:@"resetScheduled"] boolValue] == NO, @"should set resetScheduled to NO");                
+            });
+            
+            it(@"should set working to NO", ^{
+                [controller handleNewGeneration];
+                STAssertTrue([[controller valueForKey:@"working"] boolValue] == NO, @"should set working to NO");
+            });
+        });        
+    });      
 });
 
 
@@ -305,30 +409,6 @@ describe(@"menuButtonPressed:", ^{
 
 });
 
-
-describe(@"handleResetGeneration:", ^{
-    
-    __block GenSoupViewController* controller;
-    
-    beforeEach(^{
-        controller = [[GenSoupViewController alloc] init];
-        id ecosystemMock = [KWMock nullMockForClass:[Ecosystem class]];
-        id ecosystemViewMock = [KWMock nullMockForClass:[EcosystemView class]];
-        controller.ecosystem = ecosystemMock;
-        controller.ecosystemView = ecosystemViewMock;        
-    });
-    
-    afterEach(^{
-        [controller release];
-    });
-    
-    it(@"should refresh the view with the current ecosystem", ^{
-        [[controller.ecosystemView should] receive:@selector(reset)];
-        [controller handleResetGeneration];
-    });
-    
-});
-
 describe(@"resetEcosystem", ^{
     
     __block GenSoupViewController* controller;
@@ -351,25 +431,11 @@ describe(@"resetEcosystem", ^{
         [controller resetEcosystem];
     });
 
-    it(@"should schedule the reset in the ecosystem if working is set to YES", ^{
+    it(@"should reset th ecosystem", ^{
         [controller setValue:[NSNumber numberWithBool:YES] forKey:@"working"];
-        [[controller.ecosystem should] receive:@selector(scheduleReset)];
+        [[controller.ecosystem should] receive:@selector(reset)];
         [controller resetEcosystem];
     });
-
-    it(@"should set working to NO it was set to YES", ^{
-        [controller setValue:[NSNumber numberWithBool:YES] forKey:@"working"];
-        [controller resetEcosystem];
-        STAssertTrue([[controller valueForKey:@"working"] boolValue]==NO, @"should set working to NO it was set to YES");
-    });
-
-    
-    it(@"should receive handleResetGeneration if working is set to NO", ^{
-        [controller setValue:[NSNumber numberWithBool:NO] forKey:@"working"];
-        [[controller should] receive:@selector(handleResetGeneration)];
-        [controller resetEcosystem];
-    });
-
 });
 
 
@@ -386,7 +452,7 @@ describe(@"pauseLife", ^{
     });
     
     
-    it(@"should empty the initial population", ^{
+    it(@"should set working to NO", ^{
         [controller setValue:[NSNumber numberWithBool:YES] forKey:@"working"];
         [controller pauseLife];
         STAssertTrue([[controller valueForKey:@"working"] boolValue] == NO, @"should empty the initial population");

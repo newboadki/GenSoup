@@ -54,6 +54,7 @@
     
     // Flag for weather the calculation of new generations is working or not.
     working = NO;
+    resetScheduled = NO;
 }
 
 
@@ -130,22 +131,23 @@
 
 - (void) handleNewGeneration
 {
+    [self.ecosystemView refreshView:self.ecosystem];
+    
     if (working)
     {
-        [self.ecosystemView refreshView:self.ecosystem];    
-        [self.ecosystem produceNextGeneration];
+        if (resetScheduled)
+        {
+            [self resetEcosystem];      // Model
+            [self.ecosystemView reset]; // View
+            resetScheduled = NO;        // Controller's state
+            working = NO;
+        }
+        else
+        {
+            [self.ecosystem produceNextGeneration];
+        }
     }
 }
-
-
-- (void) handleResetGeneration
-{
-    /***********************************************************************************************/
-    /* This message is set by the ecosystem, when it has reset its data structures.                */
-	/***********************************************************************************************/   
-    [self.ecosystemView reset];
-}
-
 
 
 #pragma mark - UIScrollViewDelegate Protocol Methods 
@@ -225,21 +227,19 @@
 }
 
 
-- (void) resetEcosystem
+- (void) scheduleReset
 {
     /***********************************************************************************************/
     /* Empty all the data structures, clean the view up.                                           */
 	/***********************************************************************************************/
+    resetScheduled = YES;    
+}
+
+
+- (void) resetEcosystem
+{
     [initialPopulation removeAllObjects];
-    if (working)
-    {
-        [ecosystem scheduleReset];
-        working = NO;
-    }
-    else
-    {
-        [self handleResetGeneration];
-    }
+    [ecosystem reset];
 }
 
 
@@ -263,7 +263,7 @@
 - (void) setUpToolBarItems
 {
     UIBarButtonItem* playButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(startLife)];
-    UIBarButtonItem* resetButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemBookmarks target:self action:@selector(resetEcosystem)];
+    UIBarButtonItem* resetButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemBookmarks target:self action:@selector(scheduleReset)];
     UIBarButtonItem* saveButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCamera target:self action:@selector(saveButtonPressed)];
 
     self.toolbarItems = [NSArray arrayWithObjects:playButton, resetButton, saveButton, nil];
@@ -345,12 +345,6 @@
         success = [[NSFileManager defaultManager] createDirectoryAtPath:savedEcosystemsDirectoryPath withIntermediateDirectories:YES attributes:nil error:nil];
         NSString* dictionaryFilePath =  [savedEcosystemsDirectoryPath stringByAppendingFormat:@"/%@", name];
         success = success && [NSKeyedArchiver archiveRootObject:self.ecosystem toFile:dictionaryFilePath];
-        
-        NSLog(@"- rows: %d, cols:%d, count:%d", [[ecosystem valueForKey:@"rows"] intValue], [[ecosystem valueForKey:@"columns"] intValue], [ecosystem.initialPopulation count]);
-        NSLog(@"SUCESS: %d", success);
-     
-        Ecosystem* restored = (Ecosystem*)[NSKeyedUnarchiver unarchiveObjectWithFile:dictionaryFilePath];
-        NSLog(@"- rows: %d, cols:%d, count:%d", [[restored valueForKey:@"rows"] intValue], [[restored valueForKey:@"columns"] intValue], [restored.initialPopulation count]);
     }
     
     return success;
