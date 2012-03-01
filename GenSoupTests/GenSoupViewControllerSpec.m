@@ -46,7 +46,7 @@ describe(@"viewWillAppear", ^{
     __block GenSoupViewController* controller;
     
     beforeEach(^{
-        controller = [[GenSoupViewController alloc] init];
+        controller = [[GenSoupViewController alloc] init];        
     });
     
     afterEach(^{
@@ -54,6 +54,7 @@ describe(@"viewWillAppear", ^{
     });
         
     it(@"should set the ecosystemView's tapDelegate to itself", ^{
+        [controller setValue:[NSNumber numberWithBool:YES] forKey:@"firstTimeViewWillAppear"];
         id ecosystemViewMock = [KWMock nullMockForClass:[EcosystemView class]];
         [controller setEcosystemView:ecosystemViewMock];
         [[controller should] receive:@selector(configureScrollView)];
@@ -61,6 +62,7 @@ describe(@"viewWillAppear", ^{
     });
     
     it(@"should the initial population should not be nil", ^{
+        
         id ecosystemViewMock = [KWMock nullMockForClass:[EcosystemView class]];
         [controller setEcosystemView:ecosystemViewMock];
 
@@ -69,11 +71,30 @@ describe(@"viewWillAppear", ^{
     });
     
     it(@"should set the ecosystemView's tapDelegate to itself", ^{
+        [controller setValue:[NSNumber numberWithBool:YES] forKey:@"firstTimeViewWillAppear"];
         id ecosystemViewMock = [KWMock nullMockForClass:[EcosystemView class]];
         [controller stub:@selector(ecosystemView) andReturn:ecosystemViewMock];
         [[controller.ecosystemView should] receive:@selector(setTapDelegate:) withArguments:controller];
         [controller viewWillAppear:YES];
     });
+    
+    
+    it(@"should not set the ecosystemView's tapDelegate to itself", ^{
+        [controller setValue:[NSNumber numberWithBool:NO] forKey:@"firstTimeViewWillAppear"];
+        id ecosystemViewMock = [KWMock nullMockForClass:[EcosystemView class]];
+        [controller setEcosystemView:ecosystemViewMock];
+        [[controller shouldNot] receive:@selector(configureScrollView)];
+        [controller viewWillAppear:YES];
+    });
+    
+    it(@"should not set the ecosystemView's tapDelegate to itself", ^{
+        [controller setValue:[NSNumber numberWithBool:NO] forKey:@"firstTimeViewWillAppear"];
+        id ecosystemViewMock = [KWMock nullMockForClass:[EcosystemView class]];
+        [controller stub:@selector(ecosystemView) andReturn:ecosystemViewMock];
+        [[controller.ecosystemView shouldNot] receive:@selector(setTapDelegate:) withArguments:controller];
+        [controller viewWillAppear:YES];
+    });
+
 });
 
 
@@ -419,6 +440,8 @@ describe(@"resetEcosystem", ^{
         id initialPopulationMock = [KWMock nullMockForClass:[NSMutableSet class]];
         controller.initialPopulation = initialPopulationMock;
         controller.ecosystem = ecosystemMock;
+        id ecosystemViewMock = [KWMock nullMockForClass:[EcosystemView class]];
+        [controller setEcosystemView:ecosystemViewMock];
     });
     
     afterEach(^{
@@ -431,11 +454,16 @@ describe(@"resetEcosystem", ^{
         [controller resetEcosystem];
     });
 
-    it(@"should reset th ecosystem", ^{
-        [controller setValue:[NSNumber numberWithBool:YES] forKey:@"working"];
+    it(@"should reset the ecosystem", ^{
         [[controller.ecosystem should] receive:@selector(reset)];
         [controller resetEcosystem];
     });
+    
+    it(@"should reset the ecosystem's view", ^{
+        [[controller.ecosystemView should] receive:@selector(reset)];
+        [controller resetEcosystem];
+    });
+
 });
 
 

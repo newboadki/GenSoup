@@ -20,6 +20,7 @@
 {
     BOOL working;
     BOOL resetScheduled;
+    BOOL firstTimeViewWillAppear;
 }
 
 @property (retain, nonatomic) Ecosystem* ecosystem;

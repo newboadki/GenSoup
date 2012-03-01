@@ -55,14 +55,17 @@
     // Flag for weather the calculation of new generations is working or not.
     working = NO;
     resetScheduled = NO;
+    firstTimeViewWillAppear = YES;
 }
 
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    if ([ecosystem.initialPopulation count] == 0) 
-    {
-        [super viewWillAppear:animated];
+    [super viewWillAppear:animated];
+    
+    if (firstTimeViewWillAppear) 
+    {                    
+        firstTimeViewWillAppear = NO;
         
         // Configure this controller's view layout
         [self configureScrollView];
@@ -137,10 +140,9 @@
     {
         if (resetScheduled)
         {
-            [self resetEcosystem];      // Model
-            [self.ecosystemView reset]; // View
             resetScheduled = NO;        // Controller's state
             working = NO;
+            [self resetEcosystem];      // Model            
         }
         else
         {
@@ -232,14 +234,22 @@
     /***********************************************************************************************/
     /* Empty all the data structures, clean the view up.                                           */
 	/***********************************************************************************************/
-    resetScheduled = YES;    
+    if (working)
+    {
+        resetScheduled = YES;
+    }
+    else
+    {
+        [self resetEcosystem];
+    }
 }
 
 
 - (void) resetEcosystem
 {
     [initialPopulation removeAllObjects];
-    [ecosystem reset];
+    [ecosystem reset];          //model
+    [self.ecosystemView reset]; // View
 }
 
 
@@ -317,6 +327,7 @@
     [self.ecosystemView reset];                         // Prepare the view
     [self.ecosystemView refreshView:self.ecosystem];
     
+    //NSLog(@"- ecosystem loaded: %d, %d, %d, %d", [[ecosystem valueForKey:@"rows"] intValue], [[ecosystem valueForKey:@"columns"] intValue], [ecosystem.initialPopulation count], [ecosystem.aliveCells count]);
     [self dismissModalViewControllerAnimated:YES];
 }
 
@@ -334,6 +345,7 @@
 
 - (BOOL) archiveEcosystemWithName:(NSString*)name
 {
+    //NSLog(@"- ecosystem saved: %d, %d, %d, %d", [[ecosystem valueForKey:@"rows"] intValue], [[ecosystem valueForKey:@"columns"] intValue], [ecosystem.initialPopulation count], [ecosystem.aliveCells count]);
     BOOL success = NO;   
     NSArray* paths = NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES);
     NSString* documentsDirectoryPath = nil;
