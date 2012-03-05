@@ -223,7 +223,8 @@
     for (Cell* cell in self->aliveCells)
     {
         int n = [self numberOfNeighbours:cell.coordinate inSet:self->aliveCells];
-        Cell* cellCopy = [cell copy];        
+        Cell* cellCopy = [cell copy]; 
+        cellCopy.age = cell.age + 1;
         
         if((n<2) || (n>3))
         {            

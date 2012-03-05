@@ -353,6 +353,7 @@
     
     NSMutableSet* aliveCells = [[NSMutableSet alloc] init];
     [aliveCells addObject:cell0];
+    STAssertTrue(cell0.age == 0, @"A cell's age should be 0 after init");
     [aliveCells addObject:cell1];
     [aliveCells addObject:cell2];
     [aliveCells addObject:cell3];
@@ -396,6 +397,12 @@
     [eco setValue:nextGenEmptyWith3Alive forKey:@"nextGenEmptyWith3Alive"];
     
     [eco updateCurrentCellStateForNextGeneration];
+    
+    for (Cell* c in nextGenAliveCells)
+    {
+        STAssertTrue(c.age == 1, @"A cell's age should be incremented by one if they belong to aliveCells %d", c.age);    
+    }
+    
         
     STAssertTrue([nextGenAliveCells count]==4, @"newAliveForNextGeneration didn't create cells for next generation from emptyWith3Alive %i", [nextGenAliveCells count]);
     STAssertNil([nextGenAliveCells member:cell0], @"cell0 should not exist in the nextGenAlive");
