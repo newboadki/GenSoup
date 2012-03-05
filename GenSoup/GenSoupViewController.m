@@ -18,6 +18,9 @@
 - (BOOL) archiveEcosystemWithName:(NSString*)name;
 - (id) unarchiveEcosystemWithName:(NSString*)name;
 - (NSArray*) savedEcosystemsArray;
+
+- (void) showScreenShot;
+- (void) removeScreenShot;
 @end
 
 
@@ -56,6 +59,18 @@
     working = NO;
     resetScheduled = NO;
     firstTimeViewWillAppear = YES;
+    
+    
+    
+    /*UIButton *searchButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [searchButton setBackgroundImage:[UIImage imageNamed:@"Qvlv4"] forState:UIControlStateNormal];
+    [searchButton setBackgroundImage:[UIImage imageNamed:@"Qvlv4"] forState:UIControlStateHighlighted];
+    [searchButton addTarget:self action:@selector(saveButtonPressed) forControlEvents:UIControlEventTouchUpInside];
+    [searchButton setImage:[UIImage imageNamed:@"Qvlv4"] forState:UIControlStateNormal];
+    [searchButton sizeToFit];
+    
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:searchButton];*/
+    
 }
 
 
@@ -199,7 +214,11 @@
     LoadEcosystemTableViewController* loadController = [[LoadEcosystemTableViewController alloc] init];
     loadController.savedEcosystems = savedEcosystemsPaths;
     loadController.delegate = self;
+    
+    [self showScreenShot];
+    
     [self presentModalViewController:loadController animated:YES];
+    //[loadController release];
 }
 
 
@@ -209,6 +228,9 @@
     
     SaveEcosystemViewController* saveController = [[SaveEcosystemViewController alloc] init];
     [saveController setDelegate:self];
+    
+    [self showScreenShot];
+    
     [self presentModalViewController:saveController animated:YES];
     [saveController release];
 }
@@ -281,6 +303,23 @@
 }
 
 
+- (void) showScreenShot
+{
+    UIImage* ss = [ecosystemView captureView];
+    UIImageView* imageView = (UIImageView*)[self.view viewWithTag:33];
+    [imageView setImage:ss];
+    self.ecosystemView.hidden = YES;
+}
+
+
+- (void) removeScreenShot
+{
+    UIImageView* imageView = (UIImageView*)[self.view viewWithTag:33];
+    [imageView setImage:nil];
+    self.ecosystemView.hidden = NO;
+}
+
+
 
 #pragma mark - Memory Management
 
@@ -299,6 +338,7 @@
 
 - (void) saveControllerreadyForDismissalWithName:(NSString*)ecosystemName
 {
+    [self removeScreenShot];
     [self archiveEcosystemWithName:ecosystemName];
     [self dismissViewControllerAnimated:YES completion:^{
         [self resumeLife];
@@ -308,6 +348,7 @@
 
 - (void) saveControllerWasCancel
 {
+    [self removeScreenShot];
     [self dismissViewControllerAnimated:YES completion:^{
         [self resumeLife];
     }];
@@ -319,6 +360,9 @@
 
 - (void) loadControllerReadyForDismissalWithName:(NSString*)ecosystemName
 {
+
+    [self removeScreenShot];
+    
     Ecosystem* eco = (Ecosystem*)[self unarchiveEcosystemWithName:ecosystemName];
     [eco setDelegate:self];
     
@@ -334,6 +378,10 @@
 
 - (void) loadControllerWasCancel
 {
+    [self removeScreenShot];
+    
+    self.ecosystemView.hidden = NO;
+
     [self dismissViewControllerAnimated:YES completion:^{
         [self resumeLife];
     }];
@@ -372,6 +420,7 @@
 
 - (NSArray*) savedEcosystemsArray
 {
+
     NSArray* paths = NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES);
     NSString* documentsDirectoryPath = nil;
     NSMutableArray* results = [NSMutableArray array];
@@ -386,7 +435,7 @@
             [results addObject:[savedEcosystemsPath stringByAppendingFormat:@"/%@", fileName]];
         }
     }
-    
+
     return results;
 }
 
