@@ -59,6 +59,7 @@
     CellView* cv = (CellView*)[[view subviews] objectAtIndex:0];
     STAssertTrue(cv.coordinate.row==0, @"the new active cell should have row 0");
     STAssertTrue(cv.coordinate.column==0, @"the new active cell should have col 0");
+    NSLog(@"JAJAJAJ");
     STAssertTrue([[cv backgroundColor] isEqual:[UIColor yellowColor]],@"the cell that becomes  active should have yellow color");
     
     [coord0 release];

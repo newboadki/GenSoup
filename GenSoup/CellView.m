@@ -70,6 +70,46 @@
 
 
 
+#pragma mark - Customization
+
+- (void) setColorForAge:(int)age
+{
+    /***********************************************************************************************/
+    /* TODO: provide a more gradual array of colors.                                               */
+	/***********************************************************************************************/
+    UIColor* color = nil;
+    
+    switch (age)
+    {
+        case 0:
+            color = [UIColor yellowColor];
+            break;
+        case 1:
+            color = [UIColor greenColor];
+            break;
+        case 2:
+            color = [UIColor orangeColor];
+            break;
+        case 3:
+            color = [UIColor redColor];
+            break;
+        case 4:
+            color = [UIColor brownColor];
+            break;
+        case 5:
+            color = [UIColor purpleColor];
+            break;
+            
+        default:
+            color = [UIColor blackColor];
+            break;
+    }
+    
+    [self setBackgroundColor:color];
+}
+
+
+
 #pragma mark - Memory Management
 
 - (void)dealloc

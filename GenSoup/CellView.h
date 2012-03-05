@@ -21,5 +21,6 @@
 @property (nonatomic, assign) id <CellViewDelegateProtocol> tapDelegate;
 
 - (id)initWithFrame:(CGRect)frame andColor:(UIColor*)theColor andCoordinate:(Matrix2DCoordenate*)coord;
+- (void) setColorForAge:(int)age;
 
 @end

@@ -85,7 +85,7 @@
     for (int i=0; i<self.rows; i++)
     {
         for (int j=0; j<self.columns; j++)
-        {            
+        {       
             CGRect cellFrame = CGRectMake(j*self.cellViewWidth, i*self.cellViewHeight, self.cellViewWidth, self.cellViewHeight);
             Matrix2DCoordenate* cellCoordinate = [[Matrix2DCoordenate alloc] initWithRow:i andColumn:j];
             CellView* cv = [[CellView alloc] initWithFrame:cellFrame andColor:[UIColor grayColor] andCoordinate:cellCoordinate];
@@ -117,7 +117,7 @@
     {
         Matrix2DCoordenate* coord = cell.coordinate;
         CellView* cv = [[self subviews] objectAtIndex:coord.row*self.columns + coord.column];
-        [cv setBackgroundColor:[UIColor yellowColor]];
+        [cv setColorForAge:cell.age];
         [activeCellViews addObject:cv];
     }
 }
@@ -141,6 +141,24 @@
 	/***********************************************************************************************/
     CellView* cv = [[self subviews] objectAtIndex:coord.row*self.columns + coord.column];
     [cv setBackgroundColor:[UIColor yellowColor]];
+}
+
+
+- (UIImage*) captureView
+{
+    CGRect viewRect = [[UIScreen mainScreen] bounds];
+    
+    UIGraphicsBeginImageContext(self.frame.size);
+    
+        CGContextRef ctx = UIGraphicsGetCurrentContext();
+        [[UIColor clearColor] set];
+        CGContextFillRect(ctx, viewRect);    
+        [self.layer renderInContext:ctx];    
+        UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
+    
+    UIGraphicsEndImageContext();
+    
+    return newImage;
 }
 
 
