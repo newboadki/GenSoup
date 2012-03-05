@@ -13,7 +13,7 @@
 
 @synthesize coordinate;
 @synthesize organismID;
-
+@synthesize age;
 
 - (id) initWithCoordinate:(Matrix2DCoordenate*)position andOrganismID:(int)theOrganismID
 {
@@ -24,6 +24,7 @@
     {        
         [self setCoordinate:position];
         self->organismID = theOrganismID;
+        age = 0;
     }
     
     return self;

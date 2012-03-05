@@ -16,10 +16,12 @@
 {
     Matrix2DCoordenate* coordinate;
     int organismID;
+    int age;
 }
 
 @property (retain, nonatomic) Matrix2DCoordenate* coordinate;
 @property (assign, nonatomic) int organismID;
+@property (assign, nonatomic) int age;
 
 - (id) initWithCoordinate:(Matrix2DCoordenate*)position andOrganismID:(int)theOrganismID;
 
