@@ -15,38 +15,23 @@
 @implementation LoadEcosystemTableViewController
 
 
-@synthesize savedEcosystems;
+@synthesize savedEcosystems, builtInEcosystems;
 @synthesize tableView;
 @synthesize delegate;
 
 
-- (void) dealloc
-{
-    [savedEcosystems release];
-    [tableView dealloc];
-    [super dealloc];
-}
-
-
-- (void)didReceiveMemoryWarning
-{
-    // Releases the view if it doesn't have a superview.
-    [super didReceiveMemoryWarning];
-    
-    // Release any cached data, images, etc that aren't in use.
-}
 
 #pragma mark - View lifecycle
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
- 
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    
+    builtInEcosystems = [[NSArray alloc] initWithObjects:[[NSBundle mainBundle] pathForResource:@"frog" ofType:nil], 
+                                                         [[NSBundle mainBundle] pathForResource:@"glider" ofType:nil], 
+                                                         [[NSBundle mainBundle] pathForResource:@"piramid" ofType:nil], 
+                                                         [[NSBundle mainBundle] pathForResource:@"space_ship" ofType:nil], 
+                                                         [[NSBundle mainBundle] pathForResource:@"sun_flower" ofType:nil], nil];
 }
 
 - (void)viewDidUnload
@@ -54,8 +39,6 @@
     [super viewDidUnload];
     [tableView release];
     tableView = nil;
-    // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -84,17 +67,50 @@
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
+
+
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 1;
+    return 2;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [savedEcosystems count];
+    NSInteger rows = 0;
+    
+    switch (section)
+    {
+        case 0:
+            rows = [builtInEcosystems count];
+            break;
+        case 1:
+            rows = [savedEcosystems count];
+            break;
+    }
+    
+    return rows;
 }
+
+
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+{
+    NSString* title = nil;
+    
+    switch (section)
+    {
+        case 0:
+            title = @"Examples";
+            break;
+        case 1:
+            title = @"My own creatures";
+            break;
+    }
+    
+    return title;
+}
+
 
 - (UITableViewCell *)tableView:(UITableView *)theTableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -105,8 +121,22 @@
         cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
     }
     
+    NSArray* dataArray = nil;
+    switch ([indexPath section])
+    {
+        case 0:
+            dataArray = builtInEcosystems;
+            break;
+        case 1:
+            dataArray = savedEcosystems;
+            break;
+            
+        default:
+            break;
+    }
+    
     // Configure the cell...
-    NSString* fullName = [savedEcosystems objectAtIndex:[indexPath row]];
+    NSString* fullName = [dataArray objectAtIndex:[indexPath row]];
     NSArray* fullNameComponents = [fullName componentsSeparatedByString:@"/"];
     NSString* name = [fullNameComponents objectAtIndex:[fullNameComponents count] - 1];
     
@@ -118,48 +148,23 @@
 
 - (void)tableView:(UITableView *)theTableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    [delegate loadControllerReadyForDismissalWithName:[savedEcosystems objectAtIndex:indexPath.row]];
+    NSArray* dataArray = nil;
+    switch ([indexPath section])
+    {
+        case 0:
+            dataArray = builtInEcosystems;
+            break;
+        case 1:
+            dataArray = savedEcosystems;
+            break;
+            
+        default:
+            break;
+    }
 
+    [delegate loadControllerReadyForDismissalWithName:[dataArray objectAtIndex:indexPath.row]];
 }
 
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-*/
-
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    }   
-    else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
-{
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
 
 
 #pragma mark - Actions
@@ -170,5 +175,23 @@
 }
 
 
+
+#pragma mark - Memory Management
+
+- (void) dealloc
+{
+    [savedEcosystems release];
+    [builtInEcosystems release];
+    [tableView dealloc];
+    [super dealloc];
+}
+
+
+- (void)didReceiveMemoryWarning
+{
+    // Releases the view if it doesn't have a superview.
+    // Release any cached data, images, etc that aren't in use.
+    [super didReceiveMemoryWarning];        
+}
 
 @end

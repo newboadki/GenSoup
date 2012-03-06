@@ -74,7 +74,8 @@
     UITextField* textField = (UITextField*)[cell viewWithTag:TEXT_FIELD_TAG];
     NSString* text = [textField text];
     
-    if ([text length] > 0)
+    NSRange rangeOfSpace = [text rangeOfString:@" "];
+    if (([text length] > 0) && (rangeOfSpace.location == NSNotFound))
     {
         [delegate saveControllerreadyForDismissalWithName:text];
     }

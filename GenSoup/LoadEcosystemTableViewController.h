@@ -17,11 +17,14 @@
 @interface LoadEcosystemTableViewController : UIViewController <UITableViewDelegate, UITableViewDataSource>
 {
     NSArray* savedEcosystems;
+    NSArray* builtInEcosystems;
+    
     IBOutlet UITableView* tableView;
     id <LoadEcosystemViewControllerDelegateProtocol> delegate;
 }
 
 @property (retain, nonatomic) NSArray* savedEcosystems;
+@property (retain, nonatomic) NSArray* builtInEcosystems;
 @property (retain, nonatomic) UITableView* tableView;
 @property (nonatomic, assign) id <LoadEcosystemViewControllerDelegateProtocol> delegate;
 
