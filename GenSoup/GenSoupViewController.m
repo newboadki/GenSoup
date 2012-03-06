@@ -58,19 +58,7 @@
     // Flag for weather the calculation of new generations is working or not.
     working = NO;
     resetScheduled = NO;
-    firstTimeViewWillAppear = YES;
-    
-    
-    
-    /*UIButton *searchButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [searchButton setBackgroundImage:[UIImage imageNamed:@"Qvlv4"] forState:UIControlStateNormal];
-    [searchButton setBackgroundImage:[UIImage imageNamed:@"Qvlv4"] forState:UIControlStateHighlighted];
-    [searchButton addTarget:self action:@selector(saveButtonPressed) forControlEvents:UIControlEventTouchUpInside];
-    [searchButton setImage:[UIImage imageNamed:@"Qvlv4"] forState:UIControlStateNormal];
-    [searchButton sizeToFit];
-    
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:searchButton];*/
-    
+    firstTimeViewWillAppear = YES;    
 }
 
 
@@ -89,7 +77,9 @@
         [ecosystemView setUpCellViewsWith:NUMBER_OF_ROWS columns:NUMBER_OF_COLUMS cellViewWidth:10 cellViewHeight:10.15];
         
         // Set the tap delegate for this controller's view
-        [self.ecosystemView setTapDelegate:self];  // TODO, this methods needs to be called after setUpCellViewWith:columns:cellViewWidth:cellViewHeight: Make these two methods one. and make setUpCellViewWith:columns:cellViewWidth:cellViewHeight receive a parameter for the delegate.        
+        [self.ecosystemView setTapDelegate:self];  // TODO, this methods needs to be called after setUpCellViewWith:columns:cellViewWidth:cellViewHeight: Make these two methods one. and make setUpCellViewWith:columns:cellViewWidth:cellViewHeight receive a parameter for the delegate.
+        
+        [[self navigationController] setToolbarHidden:NO animated:NO];
     }
 }
 
@@ -122,7 +112,7 @@
     /* The controller starts with this method. The model calculates the next gen and lets the cont */
     /* know when its ready.                                                                        */
 	/***********************************************************************************************/
-    if (!working)
+    if (!working && ([self.ecosystem.initialPopulation count] > 0))
     {
         working = YES; 
         [self.ecosystem setUp];
@@ -294,10 +284,10 @@
 
 - (void) setUpToolBarItems
 {
-    UIBarButtonItem* playButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(startLife)];
-    UIBarButtonItem* resetButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemBookmarks target:self action:@selector(scheduleReset)];
-    UIBarButtonItem* saveButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCamera target:self action:@selector(saveButtonPressed)];
-
+    UIBarButtonItem* playButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"play"] style:UIBarButtonItemStylePlain target:self action:@selector(startLife)];
+    UIBarButtonItem* resetButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"restart"] style:UIBarButtonItemStylePlain target:self action:@selector(scheduleReset)];
+    UIBarButtonItem* saveButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"save"] style:UIBarButtonItemStylePlain target:self action:@selector(saveButtonPressed)];
+    
     self.toolbarItems = [NSArray arrayWithObjects:playButton, resetButton, saveButton, nil];
     [playButton release];
 }
@@ -338,12 +328,19 @@
 
 - (void) saveControllerreadyForDismissalWithName:(NSString*)ecosystemName
 {
+    //NSString* sanitizedString = [self sanitizeStringForSaving:ecosystemName];
     [self removeScreenShot];
     [self archiveEcosystemWithName:ecosystemName];
     [self dismissViewControllerAnimated:YES completion:^{
         [self resumeLife];
     }];
 }
+
+
+/*- (NSString*) sanitizeStringForSaving:(NSString*) unsafeString
+{
+
+}*/
 
 
 - (void) saveControllerWasCancel
@@ -432,6 +429,7 @@
         NSArray* contents = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:savedEcosystemsPath error:nil];
         for (NSString* fileName in contents)
         {
+            NSLog(@"- %@", [savedEcosystemsPath stringByAppendingFormat:@"/%@", fileName]);
             [results addObject:[savedEcosystemsPath stringByAppendingFormat:@"/%@", fileName]];
         }
     }

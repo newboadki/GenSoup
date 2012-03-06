@@ -88,7 +88,7 @@
         {       
             CGRect cellFrame = CGRectMake(j*self.cellViewWidth, i*self.cellViewHeight, self.cellViewWidth, self.cellViewHeight);
             Matrix2DCoordenate* cellCoordinate = [[Matrix2DCoordenate alloc] initWithRow:i andColumn:j];
-            CellView* cv = [[CellView alloc] initWithFrame:cellFrame andColor:[UIColor grayColor] andCoordinate:cellCoordinate];
+            CellView* cv = [[CellView alloc] initWithFrame:cellFrame andColor:GRAY_COLOR andCoordinate:cellCoordinate];
             
             [self addSubview:cv];
             
@@ -108,7 +108,7 @@
 	/***********************************************************************************************/
     for (CellView* cellView in self.activeCellViews)
     {
-        [cellView setBackgroundColor:[UIColor grayColor]];
+        [cellView setBackgroundColor:GRAY_COLOR];
     }
     
     [activeCellViews removeAllObjects];
@@ -129,7 +129,7 @@
     
     for (CellView* cv in [self subviews])
     {
-        [cv setBackgroundColor:[UIColor grayColor]];
+        [cv setBackgroundColor:GRAY_COLOR];
     }
 }
 

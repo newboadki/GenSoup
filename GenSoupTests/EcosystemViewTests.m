@@ -7,6 +7,7 @@
 //
 
 #import "EcosystemViewTests.h"
+#import "Constants.h"
 
 
 @implementation EcosystemViewTests
@@ -32,7 +33,7 @@
     CellView* cv = (CellView*)[[view subviews] objectAtIndex:0];
     STAssertTrue(cv.coordinate.row==0, @"setUpCellViews doesn't assign well the coordinates");
     STAssertTrue(cv.coordinate.column==0, @"setUpCellViews doesn't assign well the coordinates");
-    STAssertTrue([[cv backgroundColor] isEqual:[UIColor grayColor]], @"setUpCellViews doesn't assign a gray color");
+    STAssertTrue([[cv backgroundColor] isEqual:GRAY_COLOR], @"setUpCellViews doesn't assign a gray color");
 }
 
 - (void) testRefreshView
@@ -55,11 +56,10 @@
     [view refreshView:ecosystem];
     
     STAssertTrue([activeCells count]==1, @"active cells shouls have count of 1, found %i", [activeCells count]==1);
-    STAssertTrue([[cellView1 backgroundColor] isEqual:[UIColor grayColor]],@"the cell that stopped being active should have gray color");
+    STAssertTrue([[cellView1 backgroundColor] isEqual:GRAY_COLOR],@"the cell that stopped being active should have gray color");
     CellView* cv = (CellView*)[[view subviews] objectAtIndex:0];
     STAssertTrue(cv.coordinate.row==0, @"the new active cell should have row 0");
     STAssertTrue(cv.coordinate.column==0, @"the new active cell should have col 0");
-    NSLog(@"JAJAJAJ");
     STAssertTrue([[cv backgroundColor] isEqual:[UIColor yellowColor]],@"the cell that becomes  active should have yellow color");
     
     [coord0 release];
@@ -103,8 +103,8 @@
     [view reset];
     
     STAssertTrue([activeCells count]==0, @"active cells shouls have count of 0, found %i", [activeCells count]);
-    STAssertTrue([[cellView1 backgroundColor] isEqual:[UIColor grayColor]],@"the cell that stopped being active should have gray color");
-    STAssertTrue([[cellView0 backgroundColor] isEqual:[UIColor grayColor]],@"the cell that stopped being active should have gray color");
+    STAssertTrue([[cellView1 backgroundColor] isEqual:GRAY_COLOR],@"the cell that stopped being active should have gray color");
+    STAssertTrue([[cellView0 backgroundColor] isEqual:GRAY_COLOR],@"the cell that stopped being active should have gray color");
     
     [coord0 release];
     [coord1 release];

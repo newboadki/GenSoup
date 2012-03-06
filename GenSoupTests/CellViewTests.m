@@ -7,7 +7,7 @@
 //
 
 #import "CellViewTests.h"
-
+#import "Constants.h"
 
 @implementation CellViewTests
 
@@ -24,7 +24,7 @@
 - (void) testHandleSingleTapOnInactiveCell
 {
     Matrix2DCoordenate* coordinate = [[Matrix2DCoordenate alloc] initWithRow:3 andColumn:5];
-    CellView* cellView = [[CellView alloc] initWithFrame:CGRectZero andColor:[UIColor grayColor] andCoordinate:coordinate];
+    CellView* cellView = [[CellView alloc] initWithFrame:CGRectZero andColor:GRAY_COLOR andCoordinate:coordinate];
     id delegateMock = [OCMockObject mockForClass:[GenSoupViewController class]];
     [[delegateMock expect] didSelectCellViewAtCoordinate:coordinate];
     
@@ -47,7 +47,7 @@
     [cellView setTapDelegate:delegateMock];
     [cellView handleSingleTap];
     
-    STAssertTrue([[cellView backgroundColor] isEqual:[UIColor grayColor]], @"An inactive cell should turn active when tapped.");
+    STAssertTrue([[cellView backgroundColor] isEqual:GRAY_COLOR], @"An inactive cell should turn active when tapped.");
     
     [coordinate release];
     [cellView release];

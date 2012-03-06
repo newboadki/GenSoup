@@ -106,18 +106,23 @@ describe(@"startLife", ^{
         controller = [[GenSoupViewController alloc] init];
         id ecosystemMock = [KWMock nullMockForClass:[Ecosystem class]];
         [controller stub:@selector(ecosystem) andReturn:ecosystemMock]; // Need to stub, instead of assign because the method creates the instance inside and access it thought the getter later.
+        id initialPopMock = [KWMock nullMockForClass:[NSMutableSet class]];
+        [ecosystemMock stub:@selector(initialPopulation) andReturn:initialPopMock];        
+
     });
     
     afterEach(^{
         [controller release];
     });
     
-    context(@"working ivar is NO", ^{
+    context(@"working ivar is NO and there's a initial population", ^{
         beforeEach(^{
             [controller setValue:[NSNumber numberWithBool:NO] forKey:@"working"];
+            [controller.ecosystem.initialPopulation stub:@selector(count) andReturn:theValue(1)];
         });
                 
         it(@"should send the message produceNextGeneration to the ecosystem instance", ^{
+            NSLog(@"......%d", [controller.ecosystem.initialPopulation count]);
             [[controller.ecosystem should] receive:@selector(produceNextGeneration)];
             [controller startLife];            
         });
@@ -131,14 +136,61 @@ describe(@"startLife", ^{
             [controller startLife];       
             STAssertTrue([[controller valueForKey:@"working"] boolValue] == YES, @"should set working to YES");
         });
-
-
     });
     
-    context(@"working ivar is YES", ^{
+    
+    context(@"working ivar is YES and there's a initial population", ^{
         beforeEach(^{
             [controller setValue:[NSNumber numberWithBool:YES] forKey:@"working"];
+            [controller.ecosystem.initialPopulation stub:@selector(count) andReturn:theValue(1)];
         });
+                    
+        it(@"should not send the message produceNextGeneration to the ecosystem instance", ^{
+            [[controller.ecosystem shouldNot] receive:@selector(produceNextGeneration)];
+            [controller startLife];            
+        });
+        
+        it(@"should not set up the ecosystem", ^{
+            [[controller.ecosystem shouldNot] receive:@selector(setUp)];
+            [controller startLife];            
+        });
+        
+        it(@"should not set working to YES", ^{            
+            [controller startLife];       
+            STAssertTrue([[controller valueForKey:@"working"] boolValue] == YES, @"should set working to NO");
+        });
+
+    });
+
+    
+    context(@"working ivar is NO and there isn't a initial population", ^{
+        beforeEach(^{
+            [controller setValue:[NSNumber numberWithBool:NO] forKey:@"working"];
+            [controller.ecosystem.initialPopulation stub:@selector(count) andReturn:theValue(0)];
+        });        
+        
+        it(@"should not send the message produceNextGeneration to the ecosystem instance", ^{
+            [[controller.ecosystem shouldNot] receive:@selector(produceNextGeneration)];
+            [controller startLife];            
+        });
+        
+        it(@"should not set up the ecosystem", ^{
+            [[controller.ecosystem shouldNot] receive:@selector(setUp)];
+            [controller startLife];            
+        });
+        
+        it(@"should not set working to YES", ^{            
+            [controller startLife];       
+            STAssertTrue([[controller valueForKey:@"working"] boolValue] == NO, @"should set working to NO");
+        });
+
+    });
+
+    context(@"working ivar is YES and there isn't a initial population", ^{
+        beforeEach(^{
+            [controller setValue:[NSNumber numberWithBool:YES] forKey:@"working"];
+            [controller.ecosystem.initialPopulation stub:@selector(count) andReturn:theValue(0)];
+        });        
         
         it(@"should not send the message produceNextGeneration to the ecosystem instance", ^{
             [[controller.ecosystem shouldNot] receive:@selector(produceNextGeneration)];
@@ -155,7 +207,8 @@ describe(@"startLife", ^{
             STAssertTrue([[controller valueForKey:@"working"] boolValue] == YES, @"should set working to NO");
         });
 
-    });    
+    });
+
 });
 
 

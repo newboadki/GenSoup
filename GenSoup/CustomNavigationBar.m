@@ -12,7 +12,7 @@
 
 /*- (void) drawRect:(CGRect)rect
 {
-    UIImage* image = [UIImage imageNamed:@"navbar-iphone.png"];
+    UIImage* image = [UIImage imageNamed:@"instagram_3366CC"];
     [image drawInRect:rect];
 }*/
 
