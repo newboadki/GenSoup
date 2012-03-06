@@ -10,7 +10,7 @@
 #import "Matrix2DCoordenate.h"
 #import <QuartzCore/QuartzCore.h>
 #import "CellViewDelegateProtocol.h"
-
+#import "Constants.h"
 
 @interface CellView : UIView
 {

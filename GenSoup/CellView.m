@@ -8,6 +8,7 @@
 
 #import "CellView.h"
 
+
 @interface CellView()
   @property  (nonatomic, retain, readwrite) Matrix2DCoordenate* coordinate;
 - (void) handleSingleTap;
@@ -56,13 +57,13 @@
     /***********************************************************************************************/
     /* Toggles the cell's color and lets the delegate know.                                        */
 	/***********************************************************************************************/
-    if ([self.backgroundColor isEqual:[UIColor yellowColor]])
+    if ([self.backgroundColor isEqual:GRAY_COLOR])
     {
-        [self setBackgroundColor:[UIColor grayColor]];
+        [self setBackgroundColor:COLOR1];
     }
     else
     {
-        [self setBackgroundColor:[UIColor yellowColor]];    
+        [self setBackgroundColor:GRAY_COLOR];    
     }
     
     [tapDelegate didSelectCellViewAtCoordinate:self.coordinate];
@@ -82,26 +83,26 @@
     switch (age)
     {
         case 0:
-            color = [UIColor yellowColor];
+            color = COLOR1;
             break;
         case 1:
-            color = [UIColor greenColor];
+            color = COLOR2;
             break;
         case 2:
-            color = [UIColor orangeColor];
+            color = COLOR3;
             break;
         case 3:
-            color = [UIColor redColor];
+            color = COLOR4;
             break;
         case 4:
-            color = [UIColor brownColor];
+            color = COLOR5;
             break;
         case 5:
-            color = [UIColor purpleColor];
+            color = COLOR6;
             break;
             
         default:
-            color = [UIColor blackColor];
+            color = COLOR6;
             break;
     }
     
